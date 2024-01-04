@@ -14,6 +14,8 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    opacity: 1;
+    transition: opacity 1s ease-out;
 }
 
 .splash-content {
@@ -22,4 +24,8 @@ body {
 
 .main-content {
     display: none;
+}
+
+.splash-container.hide {
+    opacity: 0;
 }
