@@ -3,6 +3,11 @@ document.getElementById('goToList').addEventListener('click', function() {
     window.location.href = 'list.html';
 });
 
+document.getElementById('parkingEnd').addEventListener('click', function() {
+    // Do something when [주차 종료] is clicked
+    console.log("parkingEnd clicked!");
+});
+
 document.getElementById('searchInput').addEventListener('keydown', function(event) {
     // Check if the pressed key is Enter
     if (event.key === 'Enter') {
