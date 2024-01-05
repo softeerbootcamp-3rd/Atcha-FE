@@ -50,6 +50,29 @@ function getPosition() {
     };
 }
 
+document.getElementById('goToList').addEventListener('click', function() {
+    // Redirect to list.html when [목록] is clicked
+    window.location.href = 'list.html';
+});
+
+document.getElementById('goToList').addEventListener('click', function() {
+    // Redirect to list.html when [목록] is clicked
+    window.location.href = 'list.html';
+});
+
+document.getElementById('searchBtn').addEventListener('click', function() {
+    performSearch();
+});
+
+function performSearch() {
+    // Get the value entered in the search input
+    const searchInputValue = document.getElementById('searchInput').value;
+
+    if (searchInputValue.trim() !== '') {
+        // Redirect to search.html with the search query as a parameter
+        window.location.href = `search.html?q=${encodeURIComponent(searchInputValue)}`;
+    }
+}
 function main() {
     splashPage();
     snackBar();
