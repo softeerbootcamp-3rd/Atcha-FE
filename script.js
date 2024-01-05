@@ -111,6 +111,7 @@ document.getElementById('goToList').addEventListener('click', function() {
 
 document.getElementById('parkingEnd').addEventListener('click', function() {
     // Do something when [주차 종료] is clicked
+    window.location.href = 'list.html';
     console.log("parkingEnd clicked!");
 });
 
