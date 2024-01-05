@@ -8,6 +8,10 @@ body {
     height: 100vh;
 }
 
+.main-content {
+    display: none;
+}
+
 .splash-container {
     position: fixed;
     top: 0;
@@ -25,10 +29,6 @@ body {
 
 .splash-content {
     text-align: center;
-}
-
-.main-content {
-    display: none;
 }
 
 .splash-container.hide {
