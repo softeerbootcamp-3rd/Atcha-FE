@@ -50,7 +50,7 @@ function snackBar() {
 }
 
 function getPosition() {
-    const currentGeoLocation = document.getElementById("closeSnackbarBtn");
+    const currentGeoLocation = document.getElementById("camera");
 
     currentGeoLocation.onclick = function() {
         var startPos;
@@ -60,20 +60,21 @@ function getPosition() {
 
         let geoSuccess = function (position) {
             // Do magic with location
-            startPos = position;
-            const latitude = startPos.coords.latitude;
-            const longitude = startPos.coords.longitude;
-            console.log(latitude, longitude);
+            const positionObj = {
+                latitude : position.coords.latitude,
+                longitude : position.coords.longitude
+            }
+            console.log(positionObj);
         };
-        let geoError = function (error) {
-            console.log('Error occurred. Error code: ' + error.code);
-            // error.code can be:
+
+        // error.code can be:
             //   0: unknown error
             //   1: permission denied
             //   2: position unavailable (error response from location provider)
             //   3: timed out
+        let geoError = function (error) {
+            console.log('Error occurred. Error code: ' + error.code);
         };
-
         navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
     };
 }
