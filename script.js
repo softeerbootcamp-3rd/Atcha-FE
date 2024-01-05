@@ -10,6 +10,23 @@ document.getElementById('searchInput').addEventListener('keydown', function(even
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    const toggleButton = document.getElementById('toggleButton');
+    const list = document.getElementById('list');
+
+    toggleButton.addEventListener('click', function () {
+        // 리스트를 토글하여 나타내거나 숨김
+        if (list.style.display === 'none') {
+            list.style.display = 'block';
+            toggleButton.innerHTML = '리스트 숨기기 ▼';
+        } else {
+            list.style.display = 'none';
+            toggleButton.innerHTML = '리스트 토글 ▶';
+        }
+    });
+});
+
+
 function splashPage() {
     setTimeout(function () {
         document.getElementById('splash-container').classList.add('hide');
@@ -53,8 +70,7 @@ function getPosition() {
     const currentGeoLocation = document.getElementById("camera");
 
     currentGeoLocation.onclick = function() {
-        var startPos;
-        var geoOptions = {
+        let geoOptions = {
             timeout: 10 * 1000
         };
 
