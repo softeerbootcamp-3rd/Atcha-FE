@@ -104,6 +104,36 @@ function loadImage() {
     });
 }
 
+// function checkGeolocationPermission() {
+//     if ("geolocation" in navigator) {
+//         navigator.permissions.query({ name: 'geolocation' })
+//             .then(permissionStatus => {
+//                 if (permissionStatus.state === 'granted') {
+//                     console.log('Geolocation 권한이 허용되었습니다.');
+//                     // 권한이 허용된 경우 추가 작업 수행
+//                 } else {
+//                     console.log('Geolocation 권한이 거부되었거나 사용자가 권한을 허용하지 않았습니다.');
+//                 }
+//             })
+//             .catch(error => console.error('Geolocation API를 사용할 수 없습니다.', error));
+//     } else {
+//         console.error('Geolocation API를 지원하지 않는 브라우저입니다.');
+//     }
+// }
+
+// async function checkCameraPermission() {
+//     try {
+//         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+//         console.log('카메라 권한이 허용되었습니다.');
+//         // 권한이 허용된 경우 추가 작업 수행
+
+//         // 사용이 끝난 스트림은 해제
+//         stream.getTracks().forEach(track => track.stop());
+//     } catch (error) {
+//         console.error('카메라 권한이 거부되었거나 사용자가 권한을 허용하지 않았습니다.', error);
+//     }
+// }
+
 document.getElementById('goToList').addEventListener('click', function() {
     // Redirect to list.html when [목록] is clicked
     window.location.href = 'list.html';
@@ -122,6 +152,10 @@ document.getElementById('searchInput').addEventListener('keydown', function(even
     }
 });
 
+// document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
+//     checkGeolocationPermission()
+//     checkCameraPermission()
+// });
 
 function main() {
     // localStorage.clear();
