@@ -1,3 +1,15 @@
+document.getElementById('goToList').addEventListener('click', function() {
+    // Redirect to list.html when [목록] is clicked
+    window.location.href = 'list.html';
+});
+
+document.getElementById('searchInput').addEventListener('keydown', function(event) {
+    // Check if the pressed key is Enter
+    if (event.key === 'Enter') {
+        performSearch();
+    }
+});
+
 function splashPage() {
     setTimeout(function () {
         document.getElementById('splash-container').classList.add('hide');
@@ -65,15 +77,6 @@ function getPosition() {
         navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
     };
 }
-
-document.getElementById('goToList').addEventListener('click', function() {
-    // Redirect to list.html when [목록] is clicked
-    window.location.href = 'list.html';
-});
-
-document.getElementById('searchBtn').addEventListener('click', function() {
-    performSearch();
-});
 
 function performSearch() {
     // Get the value entered in the search input
