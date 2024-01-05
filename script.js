@@ -50,6 +50,11 @@ function getPosition() {
     };
 }
 
+document.getElementById('goToList').addEventListener('click', function() {
+    // Redirect to list.html when [목록] is clicked
+    window.location.href = 'list.html';
+});
+
 function main() {
     splashPage();
     snackBar();
