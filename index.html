@@ -17,13 +17,18 @@
     <div class="main-content" id="main-content">
         <header>
             <a href="#" id="goToList">[목록]</a>
+            <div>
+                <span>0시간 0분</span>
+                <span>0원</span>
+            </div>
             <div id="searchBar">
                 <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
             </div>
         </header>
         <!-- website content -->
         <h2>Main Content</h2>
-        <p><input type="file" accept="image/*" capture="camera"></p>
+        <p><input type="file" accept="image/*" capture="camera" id="camera"></p>
+        <p><img id="frame"></p>
         <p><textarea cols="20" rows="5" maxlength="100"></textarea></p>
         <div class="snackbar" id="permissionSnackbar">
             <span>카메라와 위치 권한이 필요합니다.</span>

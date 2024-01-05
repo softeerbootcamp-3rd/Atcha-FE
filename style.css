@@ -8,14 +8,6 @@ body {
     height: 100vh;
 }
 
-.hide {
-    display: none;
-}
-
-.appear {
-    display: block;
-}
-
 .splash-container {
     position: fixed;
     top: 0;

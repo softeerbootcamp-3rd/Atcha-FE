@@ -88,11 +88,23 @@ function performSearch() {
     }
 }
 
+function loadImage() {
+    let camera = document.getElementById('camera');
+    let frame = document.getElementById('frame');
+
+    camera.addEventListener('change', function(e) {
+        let file = e.target.files[0];
+        // Do something with the image file.
+        frame.src = URL.createObjectURL(file);
+    });
+}
+
 function main() {
     // localStorage.clear();
     splashEffect();
     snackBar();
     getPosition();
+    loadImage();
 }
 
 main();
