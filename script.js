@@ -1,20 +1,3 @@
-document.getElementById('goToList').addEventListener('click', function() {
-    // Redirect to list.html when [목록] is clicked
-    window.location.href = 'list.html';
-});
-
-document.getElementById('parkingEnd').addEventListener('click', function() {
-    // Do something when [주차 종료] is clicked
-    console.log("parkingEnd clicked!");
-});
-
-document.getElementById('searchInput').addEventListener('keydown', function(event) {
-    // Check if the pressed key is Enter
-    if (event.key === 'Enter') {
-        performSearch();
-    }
-});
-
 document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.getElementById('toggleButton');
     const list = document.getElementById('list');
@@ -23,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
         // 리스트를 토글하여 나타내거나 숨김
         if (list.style.display === 'none') {
             list.style.display = 'block';
-            toggleButton.innerHTML = '리스트 숨기기 ▼';
+            toggleButton.innerHTML = '주차정보 ▼';
         } else {
             list.style.display = 'none';
-            toggleButton.innerHTML = '리스트 토글 ▶';
+            toggleButton.innerHTML = '주차정보 ▶';
         }
     });
 });
@@ -120,6 +103,24 @@ function loadImage() {
         frame.src = URL.createObjectURL(file);
     });
 }
+
+document.getElementById('goToList').addEventListener('click', function() {
+    // Redirect to list.html when [목록] is clicked
+    window.location.href = 'list.html';
+});
+
+document.getElementById('parkingEnd').addEventListener('click', function() {
+    // Do something when [주차 종료] is clicked
+    console.log("parkingEnd clicked!");
+});
+
+document.getElementById('searchInput').addEventListener('keydown', function(event) {
+    // Check if the pressed key is Enter
+    if (event.key === 'Enter') {
+        performSearch();
+    }
+});
+
 
 function main() {
     // localStorage.clear();
