@@ -1,14 +1,30 @@
 function splashPage() {
-    console.log("asdsadsadsad");
     setTimeout(function () {
         document.getElementById('splash-container').classList.add('hide');
-    
         
         setTimeout(function () {
             document.getElementById('splash-container').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }, 1000);
     }, 1500);
+}
+
+function splashEffect(){
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if the splash screen should be displayed
+        const splashScreenDisplayed = localStorage.getItem('splashScreenDisplayed');
+        console.log(splashScreenDisplayed);
+        if (!splashScreenDisplayed) {
+            // Show the splash screen
+            splashPage();
+            // Set a flag to indicate that the splash screen has been displayed
+            localStorage.setItem('splashScreenDisplayed', 'true');
+        }else{
+            document.getElementById('splash-container').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+    });
 }
 
 function snackBar() {
@@ -55,11 +71,6 @@ document.getElementById('goToList').addEventListener('click', function() {
     window.location.href = 'list.html';
 });
 
-document.getElementById('goToList').addEventListener('click', function() {
-    // Redirect to list.html when [목록] is clicked
-    window.location.href = 'list.html';
-});
-
 document.getElementById('searchBtn').addEventListener('click', function() {
     performSearch();
 });
@@ -73,8 +84,10 @@ function performSearch() {
         window.location.href = `search.html?q=${encodeURIComponent(searchInputValue)}`;
     }
 }
+
 function main() {
-    splashPage();
+    // localStorage.clear();
+    splashEffect();
     snackBar();
     getPosition();
 }
