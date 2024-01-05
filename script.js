@@ -134,6 +134,21 @@ function loadImage() {
 //     }
 // }
 
+function checkNotification() {
+    document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
+        Notification.requestPermission()
+        .then(permission => {
+            // 권한 요청이 완료된 후에 실행되는 코드
+            console.log('알림 권한 상태:', permission);
+            // permission 값은 'granted', 'denied', 'default' 중 하나일 수 있습니다.
+            // denied면 그냥 종료해버리는게 나을듯
+        })
+        .catch(error => {
+            console.log('에러: ', error);
+        })
+    })
+}
+
 document.getElementById('goToList').addEventListener('click', function() {
     // Redirect to list.html when [목록] is clicked
     window.location.href = 'list.html';
@@ -152,17 +167,12 @@ document.getElementById('searchInput').addEventListener('keydown', function(even
     }
 });
 
-// document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
-//     checkGeolocationPermission()
-//     checkCameraPermission()
-// });
-
 function main() {
-    // localStorage.clear();
     splashEffect();
     snackBar();
     getPosition();
     loadImage();
+    checkNotification();
 }
 
 main();
