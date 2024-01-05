@@ -46,7 +46,12 @@ function splashEffect(){
 
 function snackBar() {
     window.addEventListener('load', function() {
-        document.getElementById('permissionSnackbar').style.display = 'block';
+        const notificationGranted = localStorage.getItem('notificationGranted');
+        if(!notificationGranted) {
+            document.getElementById('permissionSnackbar').style.display = 'block';
+        } else {
+            document.getElementById('permissionSnackbar').style.display = 'none';
+        }
     });
     
     document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
@@ -142,9 +147,14 @@ function checkNotification() {
             console.log('알림 권한 상태:', permission);
             // permission 값은 'granted', 'denied', 'default' 중 하나일 수 있습니다.
             // denied면 그냥 종료해버리는게 나을듯
+            const notificationGranted = localStorage.getItem('notificationGranted');
+            if(permission === "granted" && !notificationGranted) {
+                localStorage.setItem('notificationGranted', 'true');
+                console.log(notificationGranted);
+            }
         })
         .catch(error => {
-            console.log('에러: ', error);
+            console.log('알림 권한 설정 에러: ', error);
         })
     })
 }
