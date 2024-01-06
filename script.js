@@ -67,12 +67,28 @@ function getPosition() {
             timeout: 10 * 1000
         };
 
-        let geoSuccess = function (position) {
+        let geoSuccess = async function (position) {
             // Do magic with location
             const positionObj = {
                 latitude : position.coords.latitude,
                 longitude : position.coords.longitude
             }
+
+            await fetch('/location/set', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: "1",
+                    latitude: positionObj.latitude,
+                    longitude: positionObj.longitude,
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Fetch error:', error));
+
             console.log(positionObj);
         };
 
