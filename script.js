@@ -178,12 +178,25 @@ function checkNotification() {
 async function getParkingInformation(locationName) {
     const queryString = `/home?name=${locationName}`;
     const urlWithQueryString = `/tempUrl/${queryString}`;
+
     await fetch('urlWithQueryString')
     .then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error('Fetch error:', error));
 
     const parkingInformation = response.map((x) => x.data);
+}
+
+async function getHistoryInformation(id) {
+    const queryString = `/home/history/${id}`;
+    const urlWithQueryString = `/tempUrl/${queryString}`;
+
+    await fetch(urlWithQueryString)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Fetch error:', error));
+
+  // do something with response to list history value
 }
 
 document.getElementById('goToList').addEventListener('click', function() {
