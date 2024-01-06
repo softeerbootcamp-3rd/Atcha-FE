@@ -89,7 +89,7 @@ function getPosition() {
             .then(data => console.log(data))
             .catch(error => console.error('Fetch error:', error));
 
-            console.log(positionObj);
+            console.log(response);
         };
 
         // error.code can be:
@@ -173,6 +173,17 @@ function checkNotification() {
             console.log('알림 권한 설정 에러: ', error);
         })
     })
+}
+
+async function getParkingInformation(locationName) {
+    const queryString = `/home?name=${locationName}`;
+    const urlWithQueryString = `/tempUrl/${queryString}`;
+    await fetch('urlWithQueryString')
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(error => console.error('Fetch error:', error));
+
+    const parkingInformation = response.map((x) => x.data);
 }
 
 document.getElementById('goToList').addEventListener('click', function() {
