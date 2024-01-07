@@ -8,6 +8,7 @@
     <title>Atcha</title>
 </head>
 <body>
+    <!-- splash 효과 부분 -->
     <div class="splash-container" id="splash-container">
         <div class="splash-content">
             <h1>LOGO</h1>
@@ -16,23 +17,30 @@
     <!-- main content -->
     <div class="main-content" id="main-content">
         <header>
+            <!-- 목록 페이지로 가는 [목록], [주차 종료] 텍스트 -->
             <div>
                 <a href="#" id="goToList">[목록]</a>
                 <a href="#" id="parkingEnd">[주차 종료]</a>
             </div>
+            <!-- 사용자의 주차 시간과 요금 출력 -->
             <div>
                 <span id="time">0시간 0분</span>
                 <span id="fee">0원</span>
             </div>
+            <!-- 현재 위치 설정을 위한 검색 기능 -->
             <div id="searchBar">
                 <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
             </div>
         </header>
         <!-- website content -->
         <h2>Atcha!</h2>
+        <!-- 카메라 기능 부분 -->
         <div><input type="file" accept="image/*" capture="camera" id="camera"></div>
+        <!-- 사진 로드 부분 -->
         <div><img id="frame"></div>
+        <!-- 메모 기능 부분 -->
         <div><textarea cols="20" rows="5" maxlength="100"></textarea></div>
+        <!-- 사용중인 주차장의 정보 -->
         <div>
             <button id="toggleButton">주차정보 ▼</button>
             <ul id="list">
@@ -41,6 +49,7 @@
                 <li>예시 3</li>
             </ul>
         </div>
+        <!-- 권한 요청 관련 Snackbar -->
         <div class="snackbar" id="permissionSnackbar">
             <span>카메라와 위치 권한이 필요합니다.</span>
             <button id="closeSnackbarBtn">닫기</button>
