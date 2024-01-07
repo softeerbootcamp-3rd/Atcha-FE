@@ -1,0 +1,31 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.infoBox {
+    background-color: #272727;
+    margin: 10px;
+    padding: 16px;
+    margin-left: 0;
+    border-radius: 12px;
+}
+
+.details {
+    color : #8E8E93;
+    font-size: 13px;
+}
+
+.linkText {
+    color : #D1FD0F;
+}
+
+.button-back {
+    left: 0;
+}
+
+#parkinglot-name {
+    font-size: 24px;
+    font-weight: 700;
+    padding: 24px 20px 24px 0px;
+}
