@@ -135,7 +135,7 @@ function loadImage() {
         formData.append('image', file);
 
         // 서버로 이미지 업로드
-        fetch('/camera/storage', {
+        fetch('/camera/save', {
             method: 'POST',
             body: formData
         })

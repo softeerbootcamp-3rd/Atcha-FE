@@ -13,3 +13,13 @@ document.getElementById('goToMain').addEventListener('click', function() {
     // Redirect to list.html when [뒤로가기] is clicked
     window.location.href = 'index.html';
 });
+
+// 서버에 저장된 모든 주차장 이름을 가져오는 함수
+async function getAllParkingName() {
+    const response = await fetch('/parking/withoutLocation');
+    const jsonData = response.json();
+
+    const parkings = [...jsonData.parkingList];
+
+    return parkings;
+}
