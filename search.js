@@ -23,3 +23,13 @@ async function getAllParkingName() {
 
     return parkings;
 }
+
+// 배열을 순회하면서 특정 문자열과 일치하는지 확인하는 함수
+function isParkingExist(array, target) {
+    for (let i = 0;i < array.length;i++) {
+        if (array[i] === target) {
+            return true;
+        }
+    }
+    return false;
+}
