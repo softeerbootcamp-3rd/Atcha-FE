@@ -129,6 +129,7 @@ function loadImage() {
     let frame = document.getElementById('frame');
 
     camera.addEventListener('change', function(e) {
+        let imageId;
         let file = e.target.files[0];
         let formData = new FormData();
         formData.append('image', file);
@@ -140,6 +141,7 @@ function loadImage() {
         })
         .then(response => response.json())
         .then(data => { // 이미지 로드
+            imageId = data.id;
             frame.src = data.data.imageDataList[1];
         })
         .catch(error => console.error('에러: ', error));
