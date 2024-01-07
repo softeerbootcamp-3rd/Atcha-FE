@@ -130,8 +130,19 @@ function loadImage() {
 
     camera.addEventListener('change', function(e) {
         let file = e.target.files[0];
-        // Do something with the image file.
-        frame.src = URL.createObjectURL(file);
+        let formData = new FormData();
+        formData.append('image', file);
+
+        // 서버로 이미지 업로드
+        fetch('/camera/storage', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => { // 이미지 로드
+            frame.src = data.data.imageDataList[1];
+        })
+        .catch(error => console.error('에러: ', error));
     });
 }
 
