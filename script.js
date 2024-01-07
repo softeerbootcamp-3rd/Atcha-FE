@@ -54,7 +54,7 @@ function snackBar() {
         // 알림 권한이 허용되지 않았을 때
         if(!notificationGranted) {
             document.getElementById('permissionSnackbar').style.display = 'block';
-        } else { // 알림 권한이 허욜 됐을 때
+        } else { // 알림 권한이 허용 됐을 때
             document.getElementById('permissionSnackbar').style.display = 'none';
         }
     });
@@ -66,7 +66,7 @@ function snackBar() {
 
 // 사용자의 위도, 경도 값을 가져오는 함수
 function getPosition() {
-    const currentGeoLocation = document.getElementById("camera");
+    const currentGeoLocation = document.getElementById("closeSnackbarBtn");
 
     currentGeoLocation.onclick = function() {
         let geoOptions = {
