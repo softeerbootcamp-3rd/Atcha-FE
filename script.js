@@ -54,7 +54,7 @@ function snackBar() {
         // 알림 권한이 허용되지 않았을 때
         if(!notificationGranted) {
             document.getElementById('permissionSnackbar').style.display = 'block';
-        } else { // 알림 권한이 허욜 됐을 때
+        } else { // 알림 권한이 허용 됐을 때
             document.getElementById('permissionSnackbar').style.display = 'none';
         }
     });
@@ -66,7 +66,7 @@ function snackBar() {
 
 // 사용자의 위도, 경도 값을 가져오는 함수
 function getPosition() {
-    const currentGeoLocation = document.getElementById("camera");
+    const currentGeoLocation = document.getElementById("closeSnackbarBtn");
 
     currentGeoLocation.onclick = function() {
         let geoOptions = {
@@ -129,9 +129,22 @@ function loadImage() {
     let frame = document.getElementById('frame');
 
     camera.addEventListener('change', function(e) {
+        let imageId;
         let file = e.target.files[0];
-        // Do something with the image file.
-        frame.src = URL.createObjectURL(file);
+        let formData = new FormData();
+        formData.append('image', file);
+
+        // 서버로 이미지 업로드
+        fetch('/camera/storage', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => { // 이미지 로드
+            imageId = data.id;
+            frame.src = data.data.imageDataList[1];
+        })
+        .catch(error => console.error('에러: ', error));
     });
 }
 
