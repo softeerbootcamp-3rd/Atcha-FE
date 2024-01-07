@@ -8,13 +8,16 @@
     <title>Atcha</title>
 </head>
 <body>
-    <!-- 메인 화면 리다이렉션을 위한 [뒤로가기], 기록 수정을 위한 [편집] -->
+    <!-- 메인 화면 리다이렉션을 위한 [취소], 현재 위치 저장을 위한 [완료] -->
     <div>
-        <a href="#" id="goToMain">[뒤로가기]</a>
+        <a href="#" id="goToMain">[취소]</a>
+        <a href="#" id="goToMain">[완료]</a>
     </div>
-    <div class="search-content">
-        <h1>Search Result</h1>
-        <div id="searchResult"></div>
+    <div id="searchBar">
+        <input type="text" id="searchInput" placeholder="현재 위치를 입력하세요.">
+    </div>
+    <div id="listContainer">
+        
     </div>
 
     <script src="search.js"></script>
