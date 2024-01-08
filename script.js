@@ -1,20 +1,3 @@
-// 메인 화면 하단의 주차 정보 출력 관련 기능 
-// document.addEventListener('DOMContentLoaded', function () {
-//     const toggleButton = document.getElementById('toggleButton');
-//     const list = document.getElementById('list');
-//
-//     toggleButton.addEventListener('click', function () {
-//         // 리스트를 토글하여 나타내거나 숨김
-//         if (list.style.display === 'none') {
-//             list.style.display = 'block';
-//             toggleButton.innerHTML = '주차정보 ▼';
-//         } else {
-//             list.style.display = 'none';
-//             toggleButton.innerHTML = '주차정보 ▶';
-//         }
-//     });
-// });
-
 // 실행시 처음 스플래쉬 효과 관련 함수
 function splashPage() {
     setTimeout(function () {
@@ -113,15 +96,15 @@ function getPosition() {
 }
 
 // 사용자로부터 입력을 받고 쿼리 스트링을 가지고 search.html로 리다이랙션하는 함수
-function performSearch() {
-    // Get the value entered in the search input
-    const searchInputValue = document.getElementById('searchInput').value;
+// function performSearch() {
+//     // Get the value entered in the search input
+//     const searchInputValue = document.getElementById('searchInput').value;
 
-    if (searchInputValue.trim() !== '') {
-        // Redirect to search.html with the search query as a parameter
-        window.location.href = `search.html?q=${encodeURIComponent(searchInputValue)}`;
-    }
-}
+//     if (searchInputValue.trim() !== '') {
+//         // Redirect to search.html with the search query as a parameter
+//         window.location.href = `search.html?q=${encodeURIComponent(searchInputValue)}`;
+//     }
+// }
 
 // 카메라 기능과 사진을 로드하는 기능의 함수
 function loadImage() {
@@ -147,36 +130,6 @@ function loadImage() {
         .catch(error => console.error('에러: ', error));
     });
 }
-
-// function checkGeolocationPermission() {
-//     if ("geolocation" in navigator) {
-//         navigator.permissions.query({ name: 'geolocation' })
-//             .then(permissionStatus => {
-//                 if (permissionStatus.state === 'granted') {
-//                     console.log('Geolocation 권한이 허용되었습니다.');
-//                     // 권한이 허용된 경우 추가 작업 수행
-//                 } else {
-//                     console.log('Geolocation 권한이 거부되었거나 사용자가 권한을 허용하지 않았습니다.');
-//                 }
-//             })
-//             .catch(error => console.error('Geolocation API를 사용할 수 없습니다.', error));
-//     } else {
-//         console.error('Geolocation API를 지원하지 않는 브라우저입니다.');
-//     }
-// }
-
-// async function checkCameraPermission() {
-//     try {
-//         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-//         console.log('카메라 권한이 허용되었습니다.');
-//         // 권한이 허용된 경우 추가 작업 수행
-
-//         // 사용이 끝난 스트림은 해제
-//         stream.getTracks().forEach(track => track.stop());
-//     } catch (error) {
-//         console.error('카메라 권한이 거부되었거나 사용자가 권한을 허용하지 않았습니다.', error);
-//     }
-// }
 
 // 알림 권한 허용을 요청하고 확인하는 함수
 function checkNotification() {
@@ -276,7 +229,7 @@ async function getHistoryInformation(id) {
     }
 
     getNowParkingInfo().then(() => {
-        setTimeout(() => scheduleRequest(id), 60000);
+        setTimeout(() => scheduleRequest(locationName), 60000);
     });
 })('이케아 광명점');
 
@@ -302,9 +255,6 @@ function startTimer() {
         document.getElementById('time').innerHTML = hours + "시간 " + minutes + "분 ";
     }, 1000);
 }
-
-
-// 주차 세부
 
 // 파일 입력에 이벤트 리스너 추가
 document.getElementById('camera').addEventListener('change', (event) => {
@@ -332,6 +282,12 @@ document.getElementById('parkingEnd').addEventListener('click', function() {
     window.location.href = 'list.html';
     console.log("parkingEnd clicked!");
 });
+
+document.getElementById('searchArea').addEventListener('click', function () {
+    // Redirect to search.html when searchContent is clicked
+    window.location.href = 'search.html';
+    console.log('searchArea clicked!');
+})
 
 // main 함수
 function main() {
