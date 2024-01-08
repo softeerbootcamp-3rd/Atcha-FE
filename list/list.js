@@ -77,17 +77,22 @@ async function loadHistory(memberId) {
 
     const scrollContainer = document.getElementById("scrollContainer");
     for (let data of response.data.historys) {
+        const infoBox = document.createElement("div");
+        infoBox.classList.add("listBox");
         const log = document.createElement("div");
+        
         const timeLog = document.createElement("div");
         timeLog.classList.add("info");
         const parkingLog = document.createElement("div");
         parkingLog.classList.add("info");
 
         var dateChild = document.createElement("text");
+        dateChild.setAttribute("id", "date");
         dateChild.textContent = data.parkingDate;
         timeLog.appendChild(dateChild);
 
         var timeChild = document.createElement("text");
+        timeChild.setAttribute("id", "time");
         timeChild.classList.add("position-right");
         timeChild.textContent = data.parkingTime;
         timeLog.appendChild(timeChild);
@@ -95,17 +100,20 @@ async function loadHistory(memberId) {
         log.appendChild(timeLog);
 
         var parkingChild = document.createElement("text");
+        parkingChild.setAttribute("id", "parkinglot-name");
         parkingChild.textContent = data.parkingName;
         parkingLog.appendChild(parkingChild);
 
         var feeChild = document.createElement("text");
+        feeChild.setAttribute("id", "fee");
         feeChild.classList.add("position-right");
         feeChild.textContent = data.paidFee;
         parkingLog.appendChild(feeChild);
 
         log.appendChild(parkingLog);
+        infoBox.appendChild(log);
 
-        scrollContainer.appendChild(log);
+        scrollContainer.appendChild(infoBox);
     }
 };
 
