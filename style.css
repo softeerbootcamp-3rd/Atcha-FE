@@ -12,13 +12,44 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    padding-bottom: 26%;
+    color: #D1FD0F;
 }
+
+.topContent a {
+    color: #D1FD0F;
+}
+
+.topContent a:link, .topContent a:visited {
+    color: #D1FD0F;
+}
+
 
 .topContent a:first-child {
     float: left;
 }
 
 .topContent a:last-child {
+    float: right;
+}
+
+.infoContent {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoContent span {
+    font-size: 30px;  /* 글자 크기를 키움 */
+    font-weight: bold;  /* 볼드체로 설정 */
+}
+
+
+.infoContent a:first-child {
+    float: left;
+}
+
+.infoContent a:last-child {
     float: right;
 }
 
