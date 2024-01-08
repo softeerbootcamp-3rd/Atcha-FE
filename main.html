@@ -27,20 +27,32 @@
             <div>
                 <span id="building-location">현대백화점 무역센터점</span>
             </div>
+            <!-- 현재 위치 설정을 위한 검색 기능 -->
+            <div id="searchBar" style="width: 98%; margin-top: 10px; margin-bottom: 10px;">
+                <input type="text" id="searchInput" placeholder="검색어를 입력하세요" style="width: 100%;">
+            </div>
             <!-- 사용자의 주차 시간과 요금 출력 -->
             <div class="infoContent">
                 <span id="time">0시간 0분</span>
                 <span id="fee">0원</span>
             </div>
-            <!-- 현재 위치 설정을 위한 검색 기능 -->
-            <div id="searchBar">
-                <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
-            </div>
         </header>
         <!-- website content -->
-        <h2>Atcha!</h2>
         <!-- 카메라 기능 부분 -->
-        <div><input type="file" accept="image/*" capture="camera" id="camera"></div>
+        <div style="position: relative; width: 100%; max-width: 400px; height: 300px; background-color: #777; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
+
+            <!-- 이미지를 배경 이미지로 설정한 div -->
+            <div style="width: 20%; height: 20%; background-image: url('imgs/camera.png'); background-size: cover; border-radius: 8px; position: relative; margin-bottom: 10px;"></div>
+
+            <!-- 사진을 추가하면 주차 기록이 시작됩니다. 문구 -->
+            <div style="color: white; font-size: 15px; color: #444">사진을 추가하면 주차 기록이 시작됩니다.</div>
+
+            <!-- 카메라 입력 필드 -->
+            <input type="file" accept="image/*" capture="camera" id="camera" style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
+
+        </div>
+
+
         <!-- 사진 로드 부분 -->
         <div><img id="frame"></div>
         <!-- 메모 기능 부분 -->
