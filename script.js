@@ -24,7 +24,7 @@ function splashPage() {
             document.getElementById('splash-container').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }, 1000);
-    }, 1500);
+    }, 1900);
 }
 
 function splashEffect(){
@@ -331,13 +331,6 @@ document.getElementById('parkingEnd').addEventListener('click', function() {
     // Do something when [주차 종료] is clicked
     window.location.href = 'list.html';
     console.log("parkingEnd clicked!");
-});
-
-document.getElementById('searchInput').addEventListener('keydown', function(event) {
-    // Check if the pressed key is Enter
-    if (event.key === 'Enter') {
-        performSearch();
-    }
 });
 
 // main 함수

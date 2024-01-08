@@ -12,9 +12,16 @@
 <body>
     <!-- splash 효과 부분 -->
     <div class="splash-container" id="splash-container">
-        <div class="splash-content">
-            <h1>LOGO</h1>
-        </div>
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" 
+        type="module"></script><dotlottie-player 
+        src="https://lottie.host/94ca8a97-efbf-45ad-9218-452c60ebdd6e/SwmCMZB6ON.json" 
+        background="transparent" 
+        speed="1" 
+        style="width: 300px; height: 300px" 
+        direction="1" 
+        mode="normal" 
+        autoplay>
+        </dotlottie-player>
     </div>
     <!-- main content -->
     <div class="main-content" id="main-content">
@@ -45,13 +52,13 @@
         </header>
         <!-- website content -->
         <!-- 카메라 기능 부분 -->
-        <div style="position: relative; width: 100%; max-width: 400px; height: 300px; background-color: #777; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
+        <div style="position: relative; width: 100%; max-width: 400px; height: 300px; background-color: #272727; overflow: hidden; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center;">
 
             <!-- 이미지를 배경 이미지로 설정한 div -->
-            <div style="width: 20%; height: 20%; background-image: url('imgs/camera.png'); background-size: cover; border-radius: 8px; position: relative; margin-bottom: 10px;"></div>
+            <div style="width: 12%; height: 15%; background-image: url('imgs/camera.svg'); background-size: cover; position: relative; margin-bottom: 20px;"></div>
 
             <!-- 사진을 추가하면 주차 기록이 시작됩니다. 문구 -->
-            <div style="color: white; font-size: 15px; color: #444">사진을 추가하면 주차 기록이 시작됩니다.</div>
+            <div style="color: white; font-size: 15px; color: #8E8E93">사진을 추가하면 주차 기록이 시작됩니다.</div>
 
             <!-- 카메라 입력 필드 -->
             <input type="file" accept="image/*" capture="camera" id="camera" style="position: absolute; width: 100%; height: 100%; opacity: 0; cursor: pointer;">

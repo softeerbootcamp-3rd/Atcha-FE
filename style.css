@@ -28,7 +28,6 @@ a {
     display: inline-block;  /* width, height 속성 적용을 위해 display를 inline-block으로 설정 */
 }
 
-
 .topContent {
     width: 100%;
     display: flex;
@@ -36,6 +35,7 @@ a {
     padding-bottom: 7%;
     color: #D1FD0F;
     font-family: 'Pretendard-SemiBold';
+    font-size: 20px;
 }
 
 .topContent a {
@@ -157,7 +157,7 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #ffffff;
+    background-color: black;
     display: flex;
     justify-content: center;
     align-items: center;
