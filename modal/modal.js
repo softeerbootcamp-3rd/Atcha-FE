@@ -16,6 +16,12 @@ function closeModal() {
   modal.style.display = 'none';
 }
 
+// 모달 리다이랙션 함수
+function navigateTo(page) {
+  closeModal();
+  window.location.href = page;
+}
+
 // 결과 반환
 function returnResult(value) {
   closeModal(); // 모달 닫기
