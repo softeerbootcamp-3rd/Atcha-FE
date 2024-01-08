@@ -58,24 +58,24 @@ function getPosition() {
 
         // 위도, 경도 값을 성공적으로 가져왔을 때
         let geoSuccess = async function (position) {
-            // Do magic with location
-            const positionObj = {
-                latitude : position.coords.latitude,
-                longitude : position.coords.longitude
-            }
+            // 위도
+            const latitude = position.coords.latitude;
+            // 경도
+            const longitude = position.coords.longitude;
 
-            // 서버로 위도, 경도 값 전송 (POST)
-            await fetch('/location/set', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: "1",
-                    latitude: positionObj.latitude,
-                    longitude: positionObj.longitude,
-                })
-            })
+            console.log(latitude, longitude);
+
+            let params = new URLSearchParams();
+            params.append('latitude', latitude.toString());
+            params.append('longitude', longitude.toString());
+
+            console.log(params.toString());
+
+            // URL과 쿼리 문자열 합치기
+            let url = 'http://localhost:8080/location/set/user?' + params.toString();
+
+            // 서버로 위도, 경도 값 전송 (GET)
+            await fetch(url)
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(error => console.error('Fetch error:', error));
@@ -291,7 +291,7 @@ document.getElementById('searchArea').addEventListener('click', function () {
 function main() {
     splashEffect();
     snackBar();
-    getPosition();
+    // getPosition();
     loadImage();
     // getParkingInformation('locationName'); // modal에서 사용
     // scheduleRequest('locationName'); // modal에서 사용
