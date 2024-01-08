@@ -16,6 +16,12 @@ function closeModal() {
   modal.style.display = 'none';
 }
 
+// 모달 리다이랙션 함수
+function navigateTo(page) {
+  closeModal();
+  window.location.href = page;
+}
+
 // 결과 반환
 function returnResult(value) {
   closeModal(); // 모달 닫기
@@ -43,18 +49,20 @@ function uploadModalContent() {
     console.log(params.toString());
 
     // URL과 쿼리 문자열 합치기
-    let url = '/parking/withLocation' + params.toString();
+    let url = 'http://localhost:8080/parking/withLocation?' + params.toString();
 
-    // 서버와 GET 통신
-    // const response = await fetch(url);
-    // const jsonData = response.json();
 
-    // const parkingName = jsonData.data.parkingList[0].name;
-    const parkingName = 'Minwoo';
+    const response = await fetch(url);
+    const jsonData = await response.json();
+
+    console.log(jsonData);
+    console.log(jsonData.data.parkingList[0].name);
+
+    const parkingName = jsonData.data.parkingList[0].name;
     updateText(parkingName);
   }
 
-  // 가지오기 실패(거부)
+  // 가져오기 실패(거부)
   function getError() {
     alert('Geolocation Error');
   }
