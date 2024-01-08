@@ -8,11 +8,32 @@ body {
     align-items: center;
 }
 
+a {
+    text-decoration: none
+}
+
+#goToList {
+    padding: 10px
+}
+
+#parkingEnd {
+    background-color: #D1FD0F;  /* 배경색을 #D1FD0F로 설정 */
+    color: black;  /* 글자색을 검은색으로 설정 */
+    border-radius: 10px;
+
+    height: 32px;  /* 높이를 30px 로 설정 */
+    width: 90px;  /* 폭을 100px 로 설정 */
+    line-height: 30px;  /* 세로 중앙 정렬을 위해 라인 높이를 요소의 높이와 동일하게 설정 */
+    text-align: center;  /* 가로 중앙 정렬을 위해 텍스트 정렬을 센터로 설정 */
+    display: inline-block;  /* width, height 속성 적용을 위해 display를 inline-block으로 설정 */
+}
+
+
 .topContent {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 26%;
+    padding-bottom: 7%;
     color: #D1FD0F;
 }
 
