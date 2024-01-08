@@ -24,7 +24,7 @@ function splashPage() {
             document.getElementById('splash-container').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }, 1000);
-    }, 1400);
+    }, 1900);
 }
 
 function splashEffect(){
