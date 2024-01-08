@@ -31,14 +31,23 @@
                 <a href="#" id="parkingEnd">주차 종료</a>
             </div>
             <!-- 현재 건물 위치 -->
-            <div>
-                <span id="building-location">현재 위치를 설정해주세요.</span>
+            <div class="locationContent">
+                <img src="icon-pin-location-mono.svg" alt="icon-pin">
+                <span id="building-location">현대백화점 무역센터점</span>
+            </div>
+            <!-- 현재 위치 설정을 위한 검색 기능 -->
+            <div id="searchBar" style="width: 98%; margin-top: 10px; margin-bottom: 10px;">
+                <input type="text" id="searchInput" placeholder="검색어를 입력하세요" style="width: 100%;">
             </div>
             <!-- 사용자의 주차 시간과 요금 출력 -->
             <div class="infoContent">
-                <span id="time">0시간 0분</span>
+                <div class="timeContent">
+                    <img src="icon-clock-mono.svg" alt="icon-clock">
+                    <span id="time">0시간 0분</span>
+                </div>
                 <span id="fee">0원</span>
             </div>
+
         </header>
         <!-- website content -->
         <!-- 카메라 기능 부분 -->
@@ -63,13 +72,15 @@
             <textarea cols="20" rows="5" maxlength="100" class="memo-container" placeholder="메모를 작성해주세요."></textarea>
           </div>
         <!-- 사용중인 주차장의 정보 -->
-        <div>
-            <button id="toggleButton">주차정보 ▼</button>
-            <ul id="list">
-                <li>예시 1</li>
-                <li>예시 2</li>
-                <li>예시 3</li>
-            </ul>
+        <div class="parkingContent">
+            <div class="parkingMain">
+                <span class="parking">주차 정보</span>
+                <a href="#" id="parkingInfo"> > </a>
+            </div>
+            <div class="parkingInfoList">
+                <ul id="parkingList">
+                </ul>
+            </div>
         </div>
         <!-- 권한 요청 관련 Snackbar -->
         <div class="snackbar" id="permissionSnackbar">

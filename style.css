@@ -9,14 +9,30 @@ body {
 }
 
 a {
-    text-decoration-line: none;
+    text-decoration: none
+}
+
+#goToList {
+    padding: 10px
+}
+
+#parkingEnd {
+    background-color: #D1FD0F;  /* 배경색을 #D1FD0F로 설정 */
+    color: black;  /* 글자색을 검은색으로 설정 */
+    border-radius: 10px;
+
+    height: 32px;  /* 높이를 30px 로 설정 */
+    width: 90px;  /* 폭을 100px 로 설정 */
+    line-height: 30px;  /* 세로 중앙 정렬을 위해 라인 높이를 요소의 높이와 동일하게 설정 */
+    text-align: center;  /* 가로 중앙 정렬을 위해 텍스트 정렬을 센터로 설정 */
+    display: inline-block;  /* width, height 속성 적용을 위해 display를 inline-block으로 설정 */
 }
 
 .topContent {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 10%;
+    padding-bottom: 7%;
     color: #D1FD0F;
     font-size: 20px;
 }
@@ -39,13 +55,23 @@ a {
 }
 
 .infoContent {
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.timeContent {
+    display: flex;
+    align-items: center;
+}
+
+.timeContent img {
+    margin-right: 10px;
 }
 
 .infoContent span {
-    font-size: 30px;  /* 글자 크기를 키움 */
+    font-size: 26px;  /* 글자 크기를 키움 */
     font-weight: bold;  /* 볼드체로 설정 */
 }
 
@@ -58,10 +84,69 @@ a {
     float: right;
 }
 
+.locationContent {
+    display: flex;
+    align-items: center;
+}
+
+.locationContent img {
+    margin-right: 13px;
+    margin-left: 4px;
+}
 
 .main-content {
     display: none;
 }
+
+
+
+
+<!-- 하단 주차 정보 -->
+.parkingContent {
+    margin-top: 20px;
+}
+.parkingMain {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 15px;  /* 글자 크기를 키움 */
+    font-weight: bold;  /* 볼드체로 설정 */
+}
+
+#parkingList li {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.parkingKey {
+
+}
+
+
+.parkingInfoList {
+    margin-top:17px;
+}
+
+.parkingMain a:first-child {
+    float: left;
+}
+
+.parkingMain a:last-child {
+    float: right;
+}
+
+
+
+
+
 
 .splash-container {
     position: fixed;

@@ -1,19 +1,19 @@
 // 메인 화면 하단의 주차 정보 출력 관련 기능 
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleButton = document.getElementById('toggleButton');
-    const list = document.getElementById('list');
-
-    toggleButton.addEventListener('click', function () {
-        // 리스트를 토글하여 나타내거나 숨김
-        if (list.style.display === 'none') {
-            list.style.display = 'block';
-            toggleButton.innerHTML = '주차정보 ▼';
-        } else {
-            list.style.display = 'none';
-            toggleButton.innerHTML = '주차정보 ▶';
-        }
-    });
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//     const toggleButton = document.getElementById('toggleButton');
+//     const list = document.getElementById('list');
+//
+//     toggleButton.addEventListener('click', function () {
+//         // 리스트를 토글하여 나타내거나 숨김
+//         if (list.style.display === 'none') {
+//             list.style.display = 'block';
+//             toggleButton.innerHTML = '주차정보 ▼';
+//         } else {
+//             list.style.display = 'none';
+//             toggleButton.innerHTML = '주차정보 ▶';
+//         }
+//     });
+// });
 
 // 실행시 처음 스플래쉬 효과 관련 함수
 function splashPage() {
@@ -201,15 +201,39 @@ function checkNotification() {
 
 // 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 async function getParkingInformation(locationName) {
-    const queryString = `/home?name=${locationName}`;
-    const urlWithQueryString = `/tempUrl/${queryString}`;
+    const url = `http://localhost:8080/home?name=${locationName}`;
 
-    await fetch('urlWithQueryString')
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(error => console.error('Fetch error:', error));
+    await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            let ul = document.getElementById('parkingList');
+            let fee = data.data.parkingLot.fee;
+            let runningTime = data.data.parkingLot.runningTime;
+            let discount = data.data.parkingLot.discount;
+            var dataArr = {'주차요금':fee, '운영시간':runningTime, '할인정보':discount};
 
-    const parkingInformation = response.map((x) => x.data);
+            for (var key in dataArr) {
+                const listItem = document.createElement('li');
+
+                const parkingKey = document.createElement('div');
+                parkingKey.className = 'parkingKey';
+                parkingKey.textContent = key;
+
+                const parkingValue = document.createElement('div');
+                parkingValue.className = 'parkingValue';
+                parkingValue.textContent = dataArr[key];
+
+                listItem.appendChild(parkingKey);
+                listItem.appendChild(parkingValue);
+
+                ul.appendChild(listItem);
+            }
+        })
 }
 
 // 기록 목록 정보를 서버로부터 가져오는 함수 (GET)
@@ -228,7 +252,7 @@ async function getHistoryInformation(id) {
 // 현재의 주차 정보를 가져오는 함수
 (function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
-        const url = `http://localhost:8080/home?name=` + locationName; // name 변경 필요
+        const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
 
@@ -279,6 +303,9 @@ function startTimer() {
     }, 1000);
 }
 
+
+// 주차 세부
+
 // 파일 입력에 이벤트 리스너 추가
 document.getElementById('camera').addEventListener('change', (event) => {
     // 파일이 선택되었는지 확인합니다.
@@ -312,6 +339,7 @@ function main() {
     snackBar();
     getPosition();
     loadImage();
+    getParkingInformation('이케아 광명점');
     checkNotification();
     startTimer();
 }
