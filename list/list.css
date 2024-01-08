@@ -7,6 +7,11 @@ body {
 #scrollContainer {
     height: 400px;
     overflow-y: auto;
+    padding: 10px;
+}
+
+#topBar {
+    position: relative;
 }
 
 #list {
@@ -16,4 +21,23 @@ body {
 .listItem {
     border-bottom: 1px solid #ccc;
     padding: 10px;
+}
+
+.info {
+    position: relative;
+    width: 300px
+}
+
+#goToMain {
+    width: 50px;
+}
+
+.position-right { 
+    position: absolute;
+    right: 0px;
+}
+
+.position-left {
+    position: absolute;
+    left: 0px;
 }

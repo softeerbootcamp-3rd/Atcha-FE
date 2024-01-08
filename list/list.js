@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const list = document.getElementById('list');
 
     // 가상의 아이템을 생성하여 리스트에 추가
-    for (let i = 1; i <= 50; i++) {
-        const listItem = document.createElement('li');
-        listItem.className = 'listItem';
-        listItem.textContent = '리스트 아이템 ' + i;
-        list.appendChild(listItem);
-    }
+    // for (let i = 1; i <= 50; i++) {
+    //     const listItem = document.createElement('li');
+    //     listItem.className = 'listItem';
+    //     listItem.textContent = '리스트 아이템 ' + i;
+    //     list.appendChild(listItem);
+    // }
 
     // 편집 모드 여부를 나타내는 변수
     let isEditMode = false;
@@ -60,3 +60,57 @@ document.getElementById('edit').addEventListener('click', function() {
     // Redirect to list.html when [뒤로가기] is clicked
     console.log("Edit!")
 });
+
+async function loadHistory(memberId) {
+    // 요청 url 생성
+    const reqUrl = `http://localhost:8080/home/history/${memberId}`;
+
+    // api 요청
+    const response = await fetch(reqUrl, {
+        method : "GET",
+        headers : {
+            "Content-Type" : "application/json",
+        }
+    })
+    .then(res => {return res.json()});
+    console.log(response.data.historys);
+
+    const scrollContainer = document.getElementById("scrollContainer");
+    for (let data of response.data.historys) {
+        const log = document.createElement("div");
+        const timeLog = document.createElement("div");
+        timeLog.classList.add("info");
+        const parkingLog = document.createElement("div");
+        parkingLog.classList.add("info");
+
+        var dateChild = document.createElement("text");
+        dateChild.textContent = data.parkingDate;
+        timeLog.appendChild(dateChild);
+
+        var timeChild = document.createElement("text");
+        timeChild.classList.add("position-right");
+        timeChild.textContent = data.parkingTime;
+        timeLog.appendChild(timeChild);
+
+        log.appendChild(timeLog);
+
+        var parkingChild = document.createElement("text");
+        parkingChild.textContent = data.parkingName;
+        parkingLog.appendChild(parkingChild);
+
+        var feeChild = document.createElement("text");
+        feeChild.classList.add("position-right");
+        feeChild.textContent = data.paidFee;
+        parkingLog.appendChild(feeChild);
+
+        log.appendChild(parkingLog);
+
+        scrollContainer.appendChild(log);
+    }
+};
+
+function main() {
+    loadHistory(1);
+};
+
+main();
