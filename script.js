@@ -152,8 +152,8 @@ function checkNotification() {
     })
 }
 
-// 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
-async function getParkingInformation(locationName) {
+// 주차장 관련 정보를 서버로부터 가져오는 함수 (GET) <=========================
+export async function getParkingInformation(locationName) {
     const url = `http://localhost:8080/home?name=${locationName}`;
 
     await fetch(url, {
@@ -202,8 +202,8 @@ async function getHistoryInformation(id) {
   // do something with response to list history value
 }
 
-// 현재의 주차 정보를 가져오는 함수
-(function scheduleRequest(locationName) {
+// 현재의 주차 정보를 가져오는 함수 <====================================
+export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
         const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
@@ -225,14 +225,12 @@ async function getHistoryInformation(id) {
                 console.log(feeInfo);
             })
             .catch(error => console.error('에러: ', error));
-        // do something with response to list history value
     }
 
     getNowParkingInfo().then(() => {
         setTimeout(() => scheduleRequest(locationName), 60000);
     });
-})('이케아 광명점');
-
+};
 
 // 시간을 변경해주는 함수
 let hours = 0;
@@ -295,7 +293,8 @@ function main() {
     snackBar();
     getPosition();
     loadImage();
-    getParkingInformation('이케아 광명점');
+    // getParkingInformation('locationName'); // modal에서 사용
+    // scheduleRequest('locationName'); // modal에서 사용
     checkNotification();
     startTimer();
 }
