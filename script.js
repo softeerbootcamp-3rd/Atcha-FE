@@ -225,6 +225,75 @@ async function getHistoryInformation(id) {
   // do something with response to list history value
 }
 
+// 현재의 주차 정보를 가져오는 함수
+async function getNowParkingInfo(id) {
+    const url = `/home`;
+    let parkingLotName = document.getElementById('building-location').innerHTML;
+    let location = "default";
+    let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
+
+    console.log('data: ' + parkingLotName);
+
+    await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            // 현재 위치 변경
+            location = data.data.parkingLot.name;
+            parkingLotName = location;
+            feeInfo.innerHTML = data.data.myParkingFee; // 파싱 완료된 데이터
+        })
+        .catch(error => console.error('에러: ', error));
+    console.log(response);
+    // do something with response to list history value
+}
+
+
+// 시간을 변경해주는 함수
+let hours = 0;
+let minutes = 0;
+let seconds = 0;
+let timer;
+
+function addZero(time) {
+    return (time < 10) ? "0" + time : time;
+}
+
+function startTimer() {
+    timer = setInterval(() => {
+        seconds++;
+        if (seconds >= 60) {
+            minutes++;
+            seconds = 0;
+        }
+        if (minutes >= 60) {
+            hours++;
+            minutes = 0;
+        }
+        document.getElementById('time').innerHTML = addZero(hours) + "시간 " + addZero(minutes) + "분 ";
+    }, 1000);
+}
+
+// 파일 입력에 이벤트 리스너 추가
+document.getElementById('camera').addEventListener('change', (event) => {
+    // 파일이 선택되었는지 확인합니다.
+    if (event.target.files && event.target.files.length > 0) {
+        // 타이머가 이미 실행 중이라면 초기화합니다.
+        if (timer) {
+            clearInterval(timer);
+            hours = 0;
+            minutes = 0;
+            seconds = 0;
+        }
+        // 타이머를 시작합니다.
+        startTimer();
+    }
+});
+
 document.getElementById('goToList').addEventListener('click', function() {
     // Redirect to list.html when [목록] is clicked
     window.location.href = 'list.html';
@@ -250,6 +319,8 @@ function main() {
     getPosition();
     loadImage();
     checkNotification();
+    getNowParkingInfo();
+    startTimer();
 }
 
 main();
