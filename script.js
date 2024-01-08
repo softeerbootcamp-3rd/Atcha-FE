@@ -226,31 +226,35 @@ async function getHistoryInformation(id) {
 }
 
 // 현재의 주차 정보를 가져오는 함수
-async function getNowParkingInfo(id) {
-    const url = `/home`;
-    let parkingLotName = document.getElementById('building-location').innerHTML;
-    let location = "default";
-    let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
+(function scheduleRequest(locationName) {
+    async function getNowParkingInfo() {
+        const url = `http://localhost:8080/home?name=` + locationName; // name 변경 필요
+        let parkingLotName = document.getElementById('building-location');
+        let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
 
-    console.log('data: ' + parkingLotName);
+        console.log('data: ' + parkingLotName);
 
-    await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            // 현재 위치 변경
-            location = data.data.parkingLot.name;
-            parkingLotName = location;
-            feeInfo.innerHTML = data.data.myParkingFee; // 파싱 완료된 데이터
+        await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
         })
-        .catch(error => console.error('에러: ', error));
-    console.log(response);
-    // do something with response to list history value
-}
+            .then(response => response.json())
+            .then(data => {
+                // 현재 위치 변경
+                parkingLotName.innerHTML = data.data.parkingLot.name;
+                feeInfo.innerHTML = data.data.myParkingFee; // 파싱 완료된 데이터
+                console.log(feeInfo);
+            })
+            .catch(error => console.error('에러: ', error));
+        // do something with response to list history value
+    }
+
+    getNowParkingInfo().then(() => {
+        setTimeout(() => scheduleRequest(id), 60000);
+    });
+})('이케아 광명점');
 
 
 // 시간을 변경해주는 함수
@@ -258,10 +262,7 @@ let hours = 0;
 let minutes = 0;
 let seconds = 0;
 let timer;
-
-function addZero(time) {
-    return (time < 10) ? "0" + time : time;
-}
+let feeInfo
 
 function startTimer() {
     timer = setInterval(() => {
@@ -274,7 +275,7 @@ function startTimer() {
             hours++;
             minutes = 0;
         }
-        document.getElementById('time').innerHTML = addZero(hours) + "시간 " + addZero(minutes) + "분 ";
+        document.getElementById('time').innerHTML = hours + "시간 " + minutes + "분 ";
     }, 1000);
 }
 
@@ -319,7 +320,6 @@ function main() {
     getPosition();
     loadImage();
     checkNotification();
-    getNowParkingInfo();
     startTimer();
 }
 
