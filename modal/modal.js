@@ -1,10 +1,11 @@
-import { scheduleRequest, getParkingInformation } from "../script";
+import { scheduleRequest, getParkingInformation } from "../script.js";
 
-// 페이지 로딩 시 모달 열기
-document.addEventListener('DOMContentLoaded', function() {
+export function generateModal() {
+  // 페이지 로딩 시 모달 열기
+  console.log("generateModal Go");
   uploadModalContent();
   openModal();
-});
+}
 
 // 모달 열기
 function openModal() {
@@ -13,13 +14,13 @@ function openModal() {
 }
 
 // 모달 닫기
-function closeModal() {
+export function closeModal() {
   var modal = document.getElementById('myModal');
   modal.style.display = 'none';
 }
 
 // 모달 리다이랙션 함수
-function navigateTo(page, value) {
+export function navigateTo(page, value) {
   if(value === true) {
     const originalText = document.getElementById('location-content').outerHTML;
     const locationName = parseStringBetweenSingleQuotes(originalText);

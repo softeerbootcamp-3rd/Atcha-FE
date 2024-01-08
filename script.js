@@ -1,3 +1,38 @@
+import { generateModal, closeModal} from "./modal/modal.js";
+
+document.getElementById('btn1').addEventListener('click', function() {
+    console.log("1");
+    closeModal();
+    window.location.href = 'search/search.html';
+})
+
+document.getElementById('btn2').addEventListener('click', function() {
+    console.log("2");
+    const originalText = document.getElementById('location-content').outerHTML;
+    const locationName = parseStringBetweenSingleQuotes(originalText);
+
+    console.log(locationName);
+
+    scheduleRequest(locationName);
+    getParkingInformation(locationName);
+    closeModal();
+})
+
+// HTML에서 ' ' 사이의 문자열을 파싱하는 함수
+function parseStringBetweenSingleQuotes(htmlString) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+    const textContent = doc.body.textContent;
+  
+    // 정규 표현식을 사용하여 ' ' 사이의 문자열 추출
+    const match = textContent.match(/'([^']+)'/);
+    if (match) {
+      return match[1]; // 매치된 문자열 반환
+    } else {
+      return null; // 매치되지 않으면 null 반환
+    }
+  }
+
 // 실행시 처음 스플래쉬 효과 관련 함수
 function splashPage() {
     setTimeout(function () {
@@ -23,7 +58,6 @@ function splashEffect(){
             localStorage.setItem('splashScreenDisplayed', 'true');
         }else{ // 2번 이상 접속 했을 때 스플래쉬 효과가 나오지 않도록
             document.getElementById('splash-container').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
         }
 
     });
@@ -44,6 +78,8 @@ function snackBar() {
     
     document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
         document.getElementById('permissionSnackbar').style.display = 'none';
+        console.log("hello")
+        generateModal();
     });
 }
 
