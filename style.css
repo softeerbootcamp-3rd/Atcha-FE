@@ -104,7 +104,7 @@ a {
 
 
 
-<!-- 하단 주차 정보 -->
+/* <!-- 하단 주차 정보 --> */
 .parkingContent {
     margin-top: 20px;
 }
@@ -129,9 +129,9 @@ ul {
     padding: 0;
 }
 
-.parkingKey {
+/* .parkingKey {
 
-}
+} */
 
 
 .parkingInfoList {

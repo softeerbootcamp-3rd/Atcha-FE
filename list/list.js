@@ -8,7 +8,7 @@ let deleteList = [];
 deleteButton.addEventListener('click', confirmDelete);
 document.getElementById('goToMain').addEventListener('click', function() {
     // Redirect to list.html when [뒤로가기] is clicked
-    window.location.href = 'index.html';
+    window.location.href = '../main.html';
 });
 
 document.getElementById('edit').addEventListener('click', function() {
