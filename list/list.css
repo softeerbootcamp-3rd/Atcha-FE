@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
+    background-color: black;
+    color: white;
 }
 
 #scrollContainer {
@@ -12,6 +14,8 @@ body {
 
 #topBar {
     position: relative;
+    width: 300px;
+    height: 30px;
 }
 
 #list {
@@ -25,19 +29,64 @@ body {
 
 .info {
     position: relative;
-    width: 300px
-}
-
-#goToMain {
-    width: 50px;
+    width: 300px;
+    color: white;
+    font-size: 16px;
+    margin-top: 8px;
 }
 
 .position-right { 
     position: absolute;
     right: 0px;
+    margin-bottom: 8px;
 }
 
 .position-left {
     position: absolute;
     left: 0px;
+    margin-bottom: 8px;
+}
+
+.listBox {
+    background-color: #272727;
+    margin: 10px;
+    padding: 16px;
+    margin-left: 0;
+    border-radius: 12px;
+}
+
+#date {
+    color: #8E8E93;
+    font-size: 13px;
+    margin-top: 15px;
+}
+
+#time {
+    color: #8E8E93;
+    font-size: 13px;
+}
+
+#fee {
+    color: #8E8E93;
+    font-size: 13px;
+}
+
+#parkinglot-name::before {
+    content: url('/Users/admin/Desktop/Atcha-FE/list/icon-pin-location-mono.svg'); /* 이미지 파일 경로에 맞게 수정 */
+    margin-right: 5px; /* 이미지와 텍스트 사이의 간격 조절 */
+    vertical-align: middle; /* 수직 정렬 */
+    width: 16px; /* 이미지 너비 설정 */
+    height: 16px; /* 이미지 높이 설정 */
+}
+
+#goToMain {
+    font-size: 16px;
+    text-decoration: none;
+    color: #D1FD0F; /* 원하는 색상으로 변경 */
+}
+
+#edit {
+    font-size: 16px;
+    text-decoration: none;
+    color: #D1FD0F; /* 원하는 색상으로 변경 */
 }
