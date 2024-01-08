@@ -8,12 +8,17 @@ body {
     align-items: center;
 }
 
+a {
+    text-decoration-line: none;
+}
+
 .topContent {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 26%;
+    padding-bottom: 10%;
     color: #D1FD0F;
+    font-size: 20px;
 }
 
 .topContent a {
