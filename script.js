@@ -208,9 +208,9 @@ async function getHistoryInformation(id) {
         const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
-
-        console.log('data: ' + parkingLotName);
-
+        let time = document.getElementById("time");
+        let today = new Date();
+        let realTime;
         await fetch(url, {
             method: 'GET',
             headers: {
@@ -222,19 +222,33 @@ async function getHistoryInformation(id) {
                 // 현재 위치 변경
                 parkingLotName.innerHTML = data.data.parkingLot.name;
                 feeInfo.innerHTML = data.data.myParkingFee; // 파싱 완료된 데이터
-                console.log(feeInfo);
+
+                // 시간 구하기
+                let parkingTime = data.data.startTime.split(':');
+                let parkingHour = parkingTime[0];
+                let parkingMinutes = parkingTime[1];
+                let realMinutes =  today.getMinutes();
+
+                if (realMinutes - parkingMinutes < 0) {
+                    parkingHour -= 1;
+                    realMinutes += 60;
+                }
+
+                realTime = today.getHours() - parkingHour + '시간 ' + (realMinutes - parkingMinutes) + '분';
+                time.innerHTML = realTime;
+
             })
             .catch(error => console.error('에러: ', error));
-        // do something with response to list history value
     }
 
     getNowParkingInfo().then(() => {
-        setTimeout(() => scheduleRequest(locationName), 60000);
+        setTimeout(() => scheduleRequest(locationName), 6000);
     });
+
 })('이케아 광명점');
 
 
-// 시간을 변경해주는 함수
+// 시간을 변경해주는 함수 로직변경으로 사용x
 let hours = 0;
 let minutes = 0;
 let seconds = 0;
@@ -268,7 +282,6 @@ document.getElementById('camera').addEventListener('change', (event) => {
             seconds = 0;
         }
         // 타이머를 시작합니다.
-        startTimer();
     }
 });
 
@@ -297,7 +310,6 @@ function main() {
     loadImage();
     getParkingInformation('이케아 광명점');
     checkNotification();
-    startTimer();
 }
 
 main();
