@@ -98,6 +98,56 @@ a {
     display: none;
 }
 
+
+
+
+<!-- 하단 주차 정보 -->
+.parkingContent {
+    margin-top: 20px;
+}
+.parkingMain {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    font-size: 15px;  /* 글자 크기를 키움 */
+    font-weight: bold;  /* 볼드체로 설정 */
+}
+
+#parkingList li {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.parkingKey {
+
+}
+
+
+.parkingInfoList {
+    margin-top:17px;
+}
+
+.parkingMain a:first-child {
+    float: left;
+}
+
+.parkingMain a:last-child {
+    float: right;
+}
+
+
+
+
+
+
 .splash-container {
     position: fixed;
     top: 0;

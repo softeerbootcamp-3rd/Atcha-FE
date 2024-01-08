@@ -65,13 +65,15 @@
             <textarea cols="20" rows="5" maxlength="100" class="memo-container" placeholder="메모를 작성해주세요."></textarea>
           </div>
         <!-- 사용중인 주차장의 정보 -->
-        <div>
-            <button id="toggleButton">주차정보 ▼</button>
-            <ul id="list">
-                <li>예시 1</li>
-                <li>예시 2</li>
-                <li>예시 3</li>
-            </ul>
+        <div class="parkingContent">
+            <div class="parkingMain">
+                <span class="parking">주차 정보</span>
+                <a href="#" id="parkingInfo"> > </a>
+            </div>
+            <div class="parkingInfoList">
+                <ul id="parkingList">
+                </ul>
+            </div>
         </div>
         <!-- 권한 요청 관련 Snackbar -->
         <div class="snackbar" id="permissionSnackbar">
