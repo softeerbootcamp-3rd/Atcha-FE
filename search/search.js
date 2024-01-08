@@ -1,11 +1,13 @@
+let parkingList = [];
+
 document.addEventListener('DOMContentLoaded', function() {
     // Extract the search query from the URL
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('q');
 
     // Display the search result in the designated area
-    const searchResultContainer = document.getElementById('searchResult');
-    searchResultContainer.textContent = `검색어: ${searchQuery || '검색어가 없습니다'}`;
+    // const searchResultContainer = document.getElementById('searchResult');
+    // searchResultContainer.textContent = `검색어: ${searchQuery || '검색어가 없습니다'}`;
     
 });
 
@@ -28,12 +30,19 @@ document.getElementById('searchInput').addEventListener('keydown', function(even
 
 // 서버에 저장된 모든 주차장 이름을 가져오는 함수
 async function getAllParkingName() {
-    const response = await fetch('/parking/withoutLocation');
-    const jsonData = response.json();
+    // 요청 url 생성
+    const reqUrl = `http://localhost:8080/parking/withoutLocation`;
 
-    const parkings = [...jsonData.parkingList];
-
-    return parkings;
+    // api 요청
+    const response = await fetch(reqUrl, {
+        method : "GET",
+        headers : {
+            "Content-Type" : "application/json",
+        }
+    })
+    .then(res => {return res.json()});
+    // console.log(response);
+    parkingList = response.data.parkingList;
 }
 
 // 배열을 순회하면서 특정 문자열과 일치하는지 확인하는 함수
@@ -48,17 +57,37 @@ async function isParkingExist(target) {
 }
 
 // 웹 페이지에 저장되어 있는 위치들 출력하는 함수
-function viewParkingList() {
+async function viewParkingList() {
     const listContainer = document.getElementById('listContainer');
-    const parkings = getAllParkingName();
+    await getAllParkingName();
 
-    parkings.forEach(function (item) {
-        const divElement = document.createElement('div');
-        divElement.textContent = item;
-        listContainer.appendChild(divElement);
+    parkingList.forEach(function (item) {
+        console.log(item);
+        const listContent = document.createElement("div");
+        listContent.classList.add("listContent");
+
+        const parkingName = document.createElement("text");
+        parkingName.classList.add("position-left");
+        parkingName.textContent = item.name;
+        listContent.append(parkingName);
+
+        if (item.distance) {
+            const parkingDistance = document.createElement("text");
+            parkingDistance.classList.add("position-right");
+            parkingDistance.textContent = item.distance;
+            listContent.append(parkingDistance);
+        }
+
+        listContainer.append(listContent);
+
+        // const divElement = document.createElement('div');
+        // divElement.textContent = item;
+        // listContainer.appendChild(divElement);
     });
 }
 
 function main() {
     viewParkingList();
 }
+
+main();

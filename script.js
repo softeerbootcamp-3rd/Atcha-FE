@@ -287,7 +287,7 @@ document.getElementById('camera').addEventListener('change', (event) => {
 
 document.getElementById('goToList').addEventListener('click', function() {
     // Redirect to list.html when [목록] is clicked
-    window.location.href = 'list.html';
+    window.location.href = 'list/list.html';
 });
 
 document.getElementById('parkingEnd').addEventListener('click', function() {

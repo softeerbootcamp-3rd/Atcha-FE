@@ -4,20 +4,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../fontStyle.css">
     <link rel="stylesheet" href="./search.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Atcha</title>
 </head>
 <body>
     <!-- 메인 화면 리다이렉션을 위한 [취소], 현재 위치 저장을 위한 [완료] -->
-    <div>
-        <a href="#" id="goToMain">[취소]</a>
-        <a href="#" id="goToMain">[완료]</a>
+    <div id="topBar">
+        <a href="#" id="goToMain">취소</a>
+        <text id="title">검색</text>
+        <!-- <a href="#" id="goToMain">[완료]</a> -->
     </div>
     <div id="searchBar">
+        <i class="fa fa-search icon-search"></i>
         <input type="text" id="searchInput" placeholder="현재 위치를 입력하세요.">
     </div>
     <div id="listContainer">
-        
+        <!-- <div class="listContent">
+            <text class="position-left">주차장 이름</text>
+            <text class="position-right">거리</text>
+        </div> -->
     </div>
 
     <script src="search.js"></script>
