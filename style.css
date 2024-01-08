@@ -34,13 +34,23 @@ body {
 }
 
 .infoContent {
-    width: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.timeContent {
+    display: flex;
+    align-items: center;
+}
+
+.timeContent img {
+    margin-right: 10px;
 }
 
 .infoContent span {
-    font-size: 30px;  /* 글자 크기를 키움 */
+    font-size: 26px;  /* 글자 크기를 키움 */
     font-weight: bold;  /* 볼드체로 설정 */
 }
 
@@ -53,6 +63,15 @@ body {
     float: right;
 }
 
+.locationContent {
+    display: flex;
+    align-items: center;
+}
+
+.locationContent img {
+    margin-right: 13px;
+    margin-left: 4px;
+}
 
 .main-content {
     display: none;
