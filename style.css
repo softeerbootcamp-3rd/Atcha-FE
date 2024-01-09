@@ -280,3 +280,8 @@ ul {
     z-index: 999; /* 다른 요소 위로 배치 */
     display: none; /* 처음에는 숨겨둠 */
 }
+
+
+#searchArea:hover {
+    cursor: pointer;
+}

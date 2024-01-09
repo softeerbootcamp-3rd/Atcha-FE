@@ -34,7 +34,7 @@ async function loadParkingInfo(name) {
     for (let fee of fees) {
       var child = document.createElement("p");
       child.textContent = fee;
-      feeDiv.appendChild(child);      
+      feeDiv.appendChild(child);
     }
 
     // 할인 정보 추가
