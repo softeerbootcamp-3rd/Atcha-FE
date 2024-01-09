@@ -313,7 +313,7 @@ const cameraArea = document.getElementById('cameraArea');
 
 camera.addEventListener('change', function(e) {
     let file = e.target.files[0];
-    
+    console.log(`image file: ${file}`);
     resizeImage(file, 300, 300);
 })
 
@@ -353,16 +353,20 @@ async function resizeImage(file, maxWidth, maxHeight) {
     img.src = URL.createObjectURL(file);
 
     let formData = new FormData();
-    formData.append('image', file);
+    formData.append('multipartFile', file);
 
     const response = await fetch(`${SERVER_URL}/camera/save`, {
+        headers: {
+            'Content-Type' : 'multipart/form-data'
+        },
         method: 'POST',
         body: formData
     });
 
     const jsonData = await response.json();
-    const imageId = jsonData.data.imageDataList['id'];
-    const imageLink = jsonData.data.imageDataList['imageLink'];
+    console.log(`image jsonData: ${JSON.stringify(jsonData)}`);
+    const imageId = jsonData.data.imageDataList[0].id;
+    const imageLink = jsonData.data.imageDataList[0].imageLink;
 
     localStorage.setItem('imageId', imageId);
 }
