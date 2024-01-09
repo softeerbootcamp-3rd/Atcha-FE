@@ -13,20 +13,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.getElementById('goToMain').addEventListener('click', function() {
     // Redirect to list.html when [취소] is clicked
-    window.location.href = 'index.html';
+    window.location.href = '../main.html';
 });
 
-document.getElementById('searchInput').addEventListener('keydown', function(event) {
-    // Check if the pressed key is Enter
-    if (event.key === 'Enter') {
-        const searchInputValue = document.getElementById('searchInput').value;
+// document.getElementById('searchInput').addEventListener('keydown', function(event) {
+//     // Check if the pressed key is Enter
+//     if (event.key === 'Enter') {
+//         const searchInputValue = document.getElementById('searchInput').value;
 
-        if (searchInputValue.trim() !== '') {
-            // Redirect to search.html with the search query as a parameter
-            window.location.href = `search.html?q=${encodeURIComponent(searchInputValue)}`;
-        }
-    }
-});
+//         if (searchInputValue.trim() !== '') {
+//             // Redirect to search.html with the search query as a parameter
+//             window.location.href = `search.html?q=${encodeURIComponent(searchInputValue)}`;
+//         }
+//     }
+// });
 
 // 서버에 저장된 모든 주차장 이름을 가져오는 함수
 async function getAllParkingName() {
@@ -79,6 +79,11 @@ async function viewParkingList() {
     parkingList.forEach(function (item) {
         // console.log(item);
         const listContent = document.createElement("div");
+        listContent.id = item.name;
+        listContent.addEventListener('click', function(event) {
+            localStorage.setItem("parkinglot", event.currentTarget.id);
+            window.location.href = '../main.html';
+        });
         listContent.classList.add("listContent");
 
         const parkingName = document.createElement("text");
