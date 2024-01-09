@@ -91,6 +91,11 @@ async function loadHistory(memberId) {
     .then(res => {return res.json()});
     // console.log(response.data.historys);
 
+    document.getElementById("avg-time").textContent = "평균 " + response.data.avgTime;
+    document.getElementById("avg-fee").textContent = response.data.avgFee + "원";
+    document.getElementById("total-count").textContent = "총 " + response.data.count + "건의 주차";
+    document.getElementById("total-fee").textContent = "합계 "+ response.data.totalFee + "원";
+
     for (let data of response.data.historys) {
         const label = document.createElement("label");
         label.id = data.historyId

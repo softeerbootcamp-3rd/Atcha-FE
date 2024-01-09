@@ -15,7 +15,7 @@ body {
 }
 
 #scrollContainer::-webkit-scrollbar {
-    width: 8px; /* 스크롤바 너비 */
+    width: 1px; /* 스크롤바 너비 */
 }
 
 #scrollContainer::-webkit-scrollbar-thumb {
@@ -44,7 +44,7 @@ body {
 
 .info {
     position: relative;
-    width: 300px;
+    width: 350px;
     color: white;
     font-size: 16px;
     margin-top: 8px;
@@ -68,6 +68,33 @@ body {
     padding: 16px;
     margin-left: 0;
     border-radius: 12px;
+}
+.imageBox {
+    background-color: black;
+    margin: 10px;
+    padding: 16px;
+    margin-left: 0;
+    border-radius: 12px;
+}
+
+#avg-time{
+    color: #8E8E93;
+    font-size: 16px;
+}
+
+#avg-fee{
+    color: white;
+    font-size: 16px;
+}
+
+#total-count{
+    color: #8E8E93;
+    font-size: 16px;
+}
+
+#total-fee{
+    color: #D1FD0F;
+    font-size: 16px;
 }
 
 #date {
@@ -168,4 +195,9 @@ input[type="checkbox"] {
 
   .hidden {
     visibility: hidden;
+  }
+
+  .totalInfo {
+    display: flex;
+    justify-content: center;
   }
