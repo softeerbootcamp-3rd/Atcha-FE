@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="fontStyle.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="modal/modal.css">
     <title>Atcha</title>
 </head>
 <body>
@@ -69,7 +70,20 @@
         <!-- 메모 기능 부분 -->
         <div>
             <textarea cols="20" rows="5" maxlength="100" class="memo-container" placeholder="메모를 작성해주세요."></textarea>
-          </div>
+        </div>
+
+        <!-- 모달 부분 -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+              <div>
+                <p style="margin-bottom: 30px;" id="location-content">위치를 불러오는 중입니다...</p>
+              </div>
+              <div id="modalBtn" style="display: none;">
+                <button id="btn1">아니요</button>
+                <button id="btn2">네</button>
+              </div>
+            </div>
+        </div>
         <!-- 사용중인 주차장의 정보 -->
         <div class="parkingContent">
             <div class="parkingMain">
@@ -87,6 +101,8 @@
             <button id="closeSnackbarBtn">닫기</button>
         </div>
     </div>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="/modal/modal.js">
+    </script>
 </body>
 </html>

@@ -1,3 +1,38 @@
+import { generateModal, closeModal} from "./modal/modal.js";
+
+document.getElementById('btn1').addEventListener('click', function() {
+    console.log("1");
+    closeModal();
+    window.location.href = 'search/search.html';
+})
+
+document.getElementById('btn2').addEventListener('click', function() {
+    console.log("2");
+    const originalText = document.getElementById('location-content').outerHTML;
+    const locationName = parseStringBetweenSingleQuotes(originalText);
+
+    console.log(locationName);
+
+    scheduleRequest(locationName);
+    getParkingInformation(locationName);
+    closeModal();
+})
+
+// HTML에서 ' ' 사이의 문자열을 파싱하는 함수
+function parseStringBetweenSingleQuotes(htmlString) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+    const textContent = doc.body.textContent;
+  
+    // 정규 표현식을 사용하여 ' ' 사이의 문자열 추출
+    const match = textContent.match(/'([^']+)'/);
+    if (match) {
+      return match[1]; // 매치된 문자열 반환
+    } else {
+      return null; // 매치되지 않으면 null 반환
+    }
+  }
+
 // 실행시 처음 스플래쉬 효과 관련 함수
 function splashPage() {
     setTimeout(function () {
@@ -23,7 +58,6 @@ function splashEffect(){
             localStorage.setItem('splashScreenDisplayed', 'true');
         }else{ // 2번 이상 접속 했을 때 스플래쉬 효과가 나오지 않도록
             document.getElementById('splash-container').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
         }
 
     });
@@ -44,6 +78,8 @@ function snackBar() {
     
     document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
         document.getElementById('permissionSnackbar').style.display = 'none';
+        console.log("hello")
+        generateModal();
     });
 }
 
@@ -58,24 +94,24 @@ function getPosition() {
 
         // 위도, 경도 값을 성공적으로 가져왔을 때
         let geoSuccess = async function (position) {
-            // Do magic with location
-            const positionObj = {
-                latitude : position.coords.latitude,
-                longitude : position.coords.longitude
-            }
+            // 위도
+            const latitude = position.coords.latitude;
+            // 경도
+            const longitude = position.coords.longitude;
 
-            // 서버로 위도, 경도 값 전송 (POST)
-            await fetch('/location/set', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: "1",
-                    latitude: positionObj.latitude,
-                    longitude: positionObj.longitude,
-                })
-            })
+            console.log(latitude, longitude);
+
+            let params = new URLSearchParams();
+            params.append('latitude', latitude.toString());
+            params.append('longitude', longitude.toString());
+
+            console.log(params.toString());
+
+            // URL과 쿼리 문자열 합치기
+            let url = 'http://localhost:8080/location/set/user?' + params.toString();
+
+            // 서버로 위도, 경도 값 전송 (GET)
+            await fetch(url)
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(error => console.error('Fetch error:', error));
@@ -152,8 +188,8 @@ function checkNotification() {
     })
 }
 
-// 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
-async function getParkingInformation(locationName) {
+// 주차장 관련 정보를 서버로부터 가져오는 함수 (GET) <=========================
+export async function getParkingInformation(locationName) {
     const url = `http://localhost:8080/home?name=${locationName}`;
 
     await fetch(url, {
@@ -202,8 +238,8 @@ async function getHistoryInformation(id) {
   // do something with response to list history value
 }
 
-// 현재의 주차 정보를 가져오는 함수
-(function scheduleRequest(locationName) {
+// 현재의 주차 정보를 가져오는 함수 <====================================
+export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
         const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
@@ -244,9 +280,7 @@ async function getHistoryInformation(id) {
     getNowParkingInfo().then(() => {
         setTimeout(() => scheduleRequest(locationName), 6000);
     });
-
-})('이케아 광명점');
-
+};
 
 // 시간을 변경해주는 함수 로직변경으로 사용x
 let hours = 0;
@@ -306,9 +340,10 @@ document.getElementById('searchArea').addEventListener('click', function () {
 function main() {
     splashEffect();
     snackBar();
-    getPosition();
+    // getPosition();
     loadImage();
-    getParkingInformation('이케아 광명점');
+    // getParkingInformation('locationName'); // modal에서 사용
+    // scheduleRequest('locationName'); // modal에서 사용
     checkNotification();
 }
 

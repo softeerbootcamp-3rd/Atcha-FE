@@ -13,8 +13,10 @@
     <div>
       <p style="margin-bottom: 30px;" id="location-content">위치를 불러오는 중입니다...</p>
     </div>
-    <button onclick="navigateTo('list.html')">아니요</button>
-    <button onclick="navigateTo('main.html')">네</button>
+    <div id="modalBtn" style="display: none;">
+      <button onclick="navigateTo('list.html', false)">아니요</button>
+      <button onclick="navigateTo('main.html', true)">네</button>
+    </div>
   </div>
 </div>
 

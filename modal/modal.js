@@ -1,8 +1,11 @@
-// 페이지 로딩 시 모달 열기
-document.addEventListener('DOMContentLoaded', function() {
+import { scheduleRequest, getParkingInformation } from "../script.js";
+
+export function generateModal() {
+  // 페이지 로딩 시 모달 열기
+  console.log("generateModal Go");
   uploadModalContent();
   openModal();
-});
+}
 
 // 모달 열기
 function openModal() {
@@ -11,15 +14,36 @@ function openModal() {
 }
 
 // 모달 닫기
-function closeModal() {
+export function closeModal() {
   var modal = document.getElementById('myModal');
   modal.style.display = 'none';
 }
 
 // 모달 리다이랙션 함수
-function navigateTo(page) {
+export function navigateTo(page, value) {
+  if(value === true) {
+    const originalText = document.getElementById('location-content').outerHTML;
+    const locationName = parseStringBetweenSingleQuotes(originalText);
+    scheduleRequest(locationName);
+    getParkingInformation(locationName);
+  }
   closeModal();
   window.location.href = page;
+}
+
+// HTML에서 ' ' 사이의 문자열을 파싱하는 함수
+function parseStringBetweenSingleQuotes(htmlString) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlString, 'text/html');
+  const textContent = doc.body.textContent;
+
+  // 정규 표현식을 사용하여 ' ' 사이의 문자열 추출
+  const match = textContent.match(/'([^']+)'/);
+  if (match) {
+    return match[1]; // 매치된 문자열 반환
+  } else {
+    return null; // 매치되지 않으면 null 반환
+  }
 }
 
 // 결과 반환
@@ -70,6 +94,9 @@ function uploadModalContent() {
 
 // HTML text update
 function updateText(location) {
+  let modalBtn = document.getElementById('modalBtn');
   let locationContent = document.getElementById('location-content');
+
+  modalBtn.style.display = 'block';
   locationContent.innerHTML = `'${location}'에 계신가요?`;
 }
