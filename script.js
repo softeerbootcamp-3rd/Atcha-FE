@@ -230,6 +230,13 @@ export function scheduleRequest(locationName) {
     });
 };
 
+// localStorage 세팅
+function setStorage() {
+    console.log("setting storage");
+    localStorage.setItem("user", "test");
+    localStorage.setItem("userId", 1);
+}
+
 // 시간을 변경해주는 함수 로직변경으로 사용x
 let hours = 0;
 let minutes = 0;
@@ -280,16 +287,20 @@ document.getElementById('parkingEnd').addEventListener('click', function() {
 
 document.getElementById('searchArea').addEventListener('click', function () {
     // Redirect to search.html when searchContent is clicked
-    window.location.href = 'search.html';
+    window.location.href = 'search/search.html';
     console.log('searchArea clicked!');
 })
 
 // main 함수
 function main() {
+    setStorage();
     splashEffect();
     snackBar();
     loadImage();
     checkNotification();
+    console.log("user : " + localStorage.getItem("user"));
+    console.log("userId : " + localStorage.getItem("userId"));
+    console.log("parkinglost : " + localStorage.getItem("parkinglot"));
 }
 
 main();
