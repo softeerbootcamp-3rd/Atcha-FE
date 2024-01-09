@@ -130,7 +130,6 @@ function checkNotification() {
 // 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 export async function getParkingInformation(locationName) {
     localStorage.setItem("locationKey", locationName);
-    // const url = `http://localhost:8080/home?name=${locationName}`;
     const url = `${SERVER_URL}/home?name=${locationName}`;
 
     await fetch(url, {
@@ -170,7 +169,6 @@ export async function getParkingInformation(locationName) {
 // 현재의 주차 정보를 가져오는 함수
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
-        // const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
         const url = `${SERVER_URL}/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
@@ -279,7 +277,6 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
 
     // 요청 url 생성
     const reqUrl = `${SERVER_URL}/home/exit`;
-    // const reqUrl = `http://localhost:8080/home/exit`;
 
     // api 요청
     const response = await fetch(reqUrl, {
@@ -358,7 +355,7 @@ async function resizeImage(file, maxWidth, maxHeight) {
     let formData = new FormData();
     formData.append('image', file);
 
-    const response = await fetch('http://localhost:8080/camera/save', {
+    const response = await fetch(`${SERVER_URL}/camera/save`, {
         method: 'POST',
         body: formData
     });
@@ -371,7 +368,6 @@ async function resizeImage(file, maxWidth, maxHeight) {
 }
 
 const typeCounter = document.getElementById("memoCount");
-// const textarea = document.getElementById("memo");
 document.getElementById("memo").addEventListener("keyup", function (event) {
     let memo = event.target.value;
     if (memo.length > 100) {
@@ -386,7 +382,7 @@ function main() {
     splashEffect();
     snackBar();
     checkNotification();
-    // loadImage();
+    
     console.log("user : " + localStorage.getItem("user"));
     console.log("userId : " + localStorage.getItem("userId"));
     console.log("locationKey : " + localStorage.getItem("locationKey"));

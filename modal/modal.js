@@ -69,8 +69,6 @@ function uploadModalContent() {
 
     // URL과 쿼리 문자열 합치기
     let url =`${SERVER_URL}/parking/withLocation?` + params.toString();
-    // let url = 'http://localhost:8080/parking/withLocation?' + params.toString();
-
 
     const response = await fetch(url);
     const jsonData = await response.json();
