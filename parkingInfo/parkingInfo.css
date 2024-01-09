@@ -9,6 +9,7 @@ body {
     padding: 16px;
     margin-left: 0;
     border-radius: 12px;
+    width: 335px;
 }
 
 .details {
@@ -37,4 +38,9 @@ a:visited {
 
 a:link {
     color : #D1FD0F;
+}
+
+#goToMain {
+    font-family: 'Pretendard-Bold';
+    font-weight: 600;
 }

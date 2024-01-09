@@ -89,7 +89,7 @@ async function loadHistory(memberId) {
         }
     })
     .then(res => {return res.json()});
-    // console.log(response.data.historys);
+    console.log(response);
 
     document.getElementById("avg-time").textContent = "평균 " + response.data.avgTime;
     document.getElementById("avg-fee").textContent = response.data.avgFee + "원";
