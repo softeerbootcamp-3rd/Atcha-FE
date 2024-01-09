@@ -31,6 +31,7 @@ body {
     position: relative;
     width: 300px;
     height: 30px;
+    margin-top: 30px;
 }
 
 #list {
@@ -114,7 +115,8 @@ body {
 }
 
 #parkinglot-name::before {
-    content: url('/Users/admin/Desktop/Atcha-FE/list/icon-pin-location-mono.svg'); /* 이미지 파일 경로에 맞게 수정 */
+    /*content: url('/Users/admin/Desktop/Atcha-FE/list/icon-pin-location-mono.svg'); /* 이미지 파일 경로에 맞게 수정 */
+    content: url('./icon-pin-location-mono.svg'); /* 이미지 파일 경로에 맞게 수정 */
     margin-right: 5px; /* 이미지와 텍스트 사이의 간격 조절 */
     vertical-align: middle; /* 수직 정렬 */
     width: 16px; /* 이미지 너비 설정 */
@@ -165,6 +167,10 @@ input[type="checkbox"] {
   label {
     display: flex; /* Flexbox를 사용하여 정렬을 쉽게 설정 */
     align-items: center; /* 수직으로 중앙 정렬 */
+  }
+
+  label:hover {
+    cursor: pointer;
   }
 
   .red-button {
