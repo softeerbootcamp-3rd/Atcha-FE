@@ -31,7 +31,8 @@ document.getElementById('goToMain').addEventListener('click', function() {
 // 서버에 저장된 모든 주차장 이름을 가져오는 함수
 async function getAllParkingName() {
     // 요청 url 생성
-    const reqUrl = `http://localhost:8080/parking/withoutLocation`;
+    // const reqUrl = `http://localhost:8080/parking/withoutLocation`;
+    const reqUrl = `//219.255.1.253:8080/parking/withoutLocation`;
 
     // api 요청
     const response = await fetch(reqUrl, {
@@ -81,7 +82,7 @@ async function viewParkingList() {
         const listContent = document.createElement("div");
         listContent.id = item.name;
         listContent.addEventListener('click', function(event) {
-            localStorage.setItem("parkinglot", event.currentTarget.id);
+            localStorage.setItem("locationKey", event.currentTarget.id);
             window.location.href = '../main.html';
         });
         listContent.classList.add("listContent");

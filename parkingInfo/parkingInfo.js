@@ -11,7 +11,8 @@ const checkHasIncode = keyword => {
 
 async function loadParkingInfo(name) {
     // 요청 url 생성
-    const reqUrl = `http://localhost:8080/home?name=${checkHasIncode(name)}`;
+    // const reqUrl = `http://localhost:8080/home?name=${checkHasIncode(name)}`;
+    const reqUrl = `//219.255.1.253:8080/home?name=${checkHasIncode(name)}`;
 
     // api 요청
     const response = await fetch(reqUrl, {
@@ -58,7 +59,7 @@ document.getElementById("goToMain").addEventListener('click', function () {
 });
 
 function main() {
-    loadParkingInfo("현대백화점 무역센터점");
+    loadParkingInfo(localStorage.getItem("locationKey"));
     // loadParkingInfo("코엑스");
 };
 
