@@ -1,5 +1,6 @@
 import { scheduleRequest, getParkingInformation } from "../script.js";
 import { SERVER_URL } from '../constants.js';
+console.log('modal.script start');
 
 export function generateModal() {
   // 페이지 로딩 시 모달 열기

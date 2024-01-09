@@ -1,6 +1,6 @@
 import { generateModal, closeModal} from "./modal/modal.js";
 import { SERVER_URL } from './constants.js';
-
+console.log('script.js start');
 
 (function () {
     const key = localStorage.getItem('locationKey');
@@ -382,7 +382,7 @@ function main() {
     splashEffect();
     snackBar();
     checkNotification();
-    
+
     console.log("user : " + localStorage.getItem("user"));
     console.log("userId : " + localStorage.getItem("userId"));
     console.log("locationKey : " + localStorage.getItem("locationKey"));
