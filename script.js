@@ -213,8 +213,8 @@ export function scheduleRequest(locationName) {
 
 // localStorage 세팅
 function setStorage() {
-    console.log("setting storage");
-    localStorage.setItem("user", "test");
+    // console.log("setting storage");
+    // localStorage.setItem("user", "test");
     localStorage.setItem("userId", 1);
 }
 
@@ -274,7 +274,8 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
         imageId: parseInt(localStorage.getItem('imageId')),
         content: document.getElementById('memoArea').value,
         paidFee: document.getElementById('fee').innerHTML,
-        parkingTime: document.getElementById('time').innerHTML
+        parkingTime: document.getElementById('time').innerHTML,
+        content: document.getElementById('memo').value
     }
 
     // 요청 url 생성
@@ -358,7 +359,7 @@ async function resizeImage(file, maxWidth, maxHeight) {
     let formData = new FormData();
     formData.append('image', file);
 
-    const response = await fetch('http://localhost:8080/camera/save', {
+    const response = await fetch(`${SERVER_URL}camera/save`, {
         method: 'POST',
         body: formData
     });

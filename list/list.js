@@ -21,7 +21,7 @@ document.getElementById('edit').addEventListener('click', function() {
 
 async function confirmDelete() {
     for (let historyId of deleteList) {
-        const reqUrl = `${SERVER_URL}home/history/${(historyId)}`;
+        const reqUrl = `${SERVER_URL}/home/history/${(historyId)}`;
 
         // api 요청
         const response = await fetch(reqUrl, {
@@ -102,8 +102,10 @@ async function loadHistory(memberId) {
         const label = document.createElement("label");
         label.id = data.historyId
         label.addEventListener('click', function (event) {
-            localStorage.setItem("historyId", event.currentTarget.id);
-            window.location.href = '../history/history.html';
+            if (!isEditMode) {
+                localStorage.setItem("historyId", event.currentTarget.id);
+                window.location.href = '../history/history.html';
+            }
         });
 
         const listBox = document.createElement("div");
