@@ -20,6 +20,14 @@ a:visited {
     padding: 10px
 }
 
+#building-location:link {
+    color: #8E8E93;
+}
+
+#building-location:visited {
+    color: #8E8E93;
+}
+
 #parkingEnd {
     background-color: #D1FD0F;  /* 배경색을 #D1FD0F로 설정 */
     color: black;  /* 글자색을 검은색으로 설정 */
@@ -271,4 +279,9 @@ ul {
     background: rgba(0, 0, 0, 0.5); /* 불투명한 배경 설정 */
     z-index: 999; /* 다른 요소 위로 배치 */
     display: none; /* 처음에는 숨겨둠 */
+}
+
+
+#searchArea:hover {
+    cursor: pointer;
 }

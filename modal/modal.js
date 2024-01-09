@@ -1,4 +1,5 @@
 import { scheduleRequest, getParkingInformation } from "../script.js";
+import { SERVER_URL } from '../constants.js';
 
 export function generateModal() {
   // 페이지 로딩 시 모달 열기
@@ -67,7 +68,7 @@ function uploadModalContent() {
     console.log(params.toString());
 
     // URL과 쿼리 문자열 합치기
-    let url = '//219.255.1.253:8080/parking/withLocation?' + params.toString();
+    let url =`${SERVER_URL}/parking/withLocation?` + params.toString();
     // let url = 'http://localhost:8080/parking/withLocation?' + params.toString();
 
 

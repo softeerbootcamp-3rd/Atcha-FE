@@ -1,3 +1,5 @@
+import { SERVER_URL } from '../constants.js';
+
 let parkingList = [];
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -32,7 +34,7 @@ document.getElementById('goToMain').addEventListener('click', function() {
 async function getAllParkingName() {
     // 요청 url 생성
     // const reqUrl = `http://localhost:8080/parking/withoutLocation`;
-    const reqUrl = `//219.255.1.253:8080/parking/withoutLocation`;
+    const reqUrl = `${SERVER_URL}/parking/withoutLocation`;
 
     // api 요청
     const response = await fetch(reqUrl, {
@@ -57,20 +59,34 @@ async function isParkingExist(target) {
     return false;
 }
 
-function filter() {
-    let search = document.getElementById("searchInput").value.toLowerCase();
-    let listInner = document.getElementsByClassName("listContent");
+let listInner = document.getElementsByClassName("listContent");
+// function filter() {
+//     let search = document.getElementById("searchInput").value.toLowerCase();
+//     let listInner = document.getElementsByClassName("listContent");
    
+//     for (let i = 0; i < listInner.length; i++) {
+//         parkingName = listInner[i].getElementsByClassName("position-left");
+//         if (parkingName[0].innerHTML.toLowerCase().includes(search)
+//            ) {
+//             listInner[i].style.display = "flex"
+//         } else {
+//             listInner[i].style.display = "none"
+//         }
+//     }
+// }
+
+document.getElementById("searchInput").addEventListener("keyup", function (event) {
+    let search = event.target.value.toLowerCase();
+
     for (let i = 0; i < listInner.length; i++) {
-        parkingName = listInner[i].getElementsByClassName("position-left");
-        if (parkingName[0].innerHTML.toLowerCase().includes(search)
-           ) {
+        let parkingName = listInner[i].getElementsByClassName("position-left");
+        if (parkingName[0].innerHTML.toLowerCase().includes(search)) {
             listInner[i].style.display = "flex"
         } else {
             listInner[i].style.display = "none"
         }
     }
-}
+})
 
 // 웹 페이지에 저장되어 있는 위치들 출력하는 함수
 async function viewParkingList() {

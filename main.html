@@ -92,7 +92,11 @@
         <div><img id="frame"></div>
         <!-- 메모 기능 부분 -->
         <div id="memoArea">
-            <textarea cols="20" rows="5" maxlength="100" class="memo-container" placeholder="메모를 작성해주세요."></textarea>
+            <textarea id="memo" cols="20" rows="5" maxlength="100" class="memo-container" placeholder="메모를 작성해주세요."></textarea>
+            <div id="memoCounter">
+                <span id="memoCount" style="color: #D3D9DF;">0</span>
+                <span style="color: #8E8E93;" id="counter">/100</span>
+            </div>
         </div>
 
         <!-- 모달 부분 -->
@@ -156,5 +160,6 @@
     <script type="module" src="script.js"></script>
     <script type="module" src="/modal/modal.js">
     </script>
+    <script src="./constants.js" type="module"></script>
 </body>
 </html>

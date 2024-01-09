@@ -1,4 +1,5 @@
 import { generateModal, closeModal} from "./modal/modal.js";
+import { SERVER_URL } from './constants.js';
 
 
 (function () {
@@ -130,7 +131,7 @@ function checkNotification() {
 export async function getParkingInformation(locationName) {
     localStorage.setItem("locationKey", locationName);
     // const url = `http://localhost:8080/home?name=${locationName}`;
-    const url = `//219.255.1.253:8080/home?name=${locationName}`;
+    const url = `${SERVER_URL}/home?name=${locationName}`;
 
     await fetch(url, {
         method: 'GET',
@@ -140,10 +141,11 @@ export async function getParkingInformation(locationName) {
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             let ul = document.getElementById('parkingList');
-            let fee = data.data.parkingLot.fee;
-            let runningTime = data.data.parkingLot.runningTime;
-            let discount = data.data.parkingLot.discount;
+            let fee = data.data.parkingLot.fee.split("|")[0];
+            let runningTime = data.data.parkingLot.runningTime.split("|")[0];
+            let discount = data.data.parkingLot.discount.split("\n")[0];
             var dataArr = {'주차요금':fee, '운영시간':runningTime, '할인정보':discount};
 
             for (var key in dataArr) {
@@ -169,7 +171,7 @@ export async function getParkingInformation(locationName) {
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
         // const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
-        const url = `//219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
+        const url = `${SERVER_URL}/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
         let time = document.getElementById("time");
@@ -261,6 +263,9 @@ document.getElementById('goToList').addEventListener('click', function() {
 document.getElementById('parkingEnd').addEventListener('click', async function() {
     // Do something when [주차 종료] is clicked
     // window.location.href = 'list.html';
+    if(!localStorage.getItem("locationKey")) {
+        return;
+    }
 
     console.log("parkingEnd clicked!");
 
@@ -272,26 +277,36 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
         parkingTime: document.getElementById('time').innerHTML
     }
 
-    const url = `http://localhost:8080/home/exit`;
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
+    // 요청 url 생성
+    const reqUrl = `${SERVER_URL}/home/exit`;
+    // const reqUrl = `http://localhost:8080/home/exit`;
+
+    // api 요청
+    const response = await fetch(reqUrl, {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/json",
         },
         body: JSON.stringify(postData)
     });
-
-    const jsonData = response.json();
+    
+    localStorage.removeItem("locationKey");
     window.location.href = 'list/list.html';
 });
 
 document.getElementById('searchArea').addEventListener('click', function () {
     // Redirect to search.html when searchContent is clicked
+    if (localStorage.getItem("locationKey")) {
+        return;
+    }
     window.location.href = 'search/search.html';
     console.log('searchArea clicked!');
 })
 
 document.getElementById('parkingMain').addEventListener('click', function () {
+    if(!localStorage.getItem("locationKey")) {
+        return ;
+    }
     window.location.href = 'parkingInfo/parkingInfo.html';
 })
 
@@ -354,6 +369,16 @@ async function resizeImage(file, maxWidth, maxHeight) {
 
     localStorage.setItem('imageId', imageId);
 }
+
+const typeCounter = document.getElementById("memoCount");
+// const textarea = document.getElementById("memo");
+document.getElementById("memo").addEventListener("keyup", function (event) {
+    let memo = event.target.value;
+    if (memo.length > 100) {
+        event.target.value = memo.substring(0, 100);
+    }
+    typeCounter.textContent = memo.length;
+})
 
 // main 함수
 function main() {
