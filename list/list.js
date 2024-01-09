@@ -142,7 +142,7 @@ async function loadHistory(memberId) {
 };
 
 function main() {
-    loadHistory(1);
+    loadHistory(localStorage.getItem("userId"));
 };
 
 function selectMapList() {
