@@ -127,6 +127,7 @@ function loadImage() {
         const imageId = jsonData.data.imageDataList['id'];
         const imageLink = jsonData.data.imageDataList['imageLink'];
 
+        localStorage.setItem('imageId', imageId);
         cameraArea.style.display = none;
         frame.src = imageLink;
     });
@@ -287,34 +288,29 @@ document.getElementById('goToList').addEventListener('click', function() {
 
 document.getElementById('parkingEnd').addEventListener('click', async function() {
     // Do something when [주차 종료] is clicked
+    // window.location.href = 'list.html';
 
-    let formData = {
-        "name" : "현대백화점 무역센터점",
-        "imageId" : 0,
-        "content" : "메모",
-        "paidFee" : "1,000 원",
-        "parkingTime" : "1시간 24분"
+    console.log("parkingEnd clicked!");
+
+    const postData = {
+        name: localStorage.getItem('locationKey'),
+        imageId: parseInt(localStorage.getItem('imageId')),
+        content: document.getElementById('memoArea').value,
+        paidFee: document.getElementById('fee').innerHTML,
+        parkingTime: document.getElementById('time').innerHTML
     }
 
-    let jsonData = JSON.stringify(formData);
-
-    // 요청 url 생성
-    const reqUrl = `//219.255.1.253:8080/home/exit`;
-    // const reqUrl = `http://localhost:8080/home/exit`;
-
-    // api 요청
-    const response = await fetch(reqUrl, {
-        method : "POST",
-        headers : {
-            "Content-Type" : "application/json",
+    const url = `http://localhost:8080/home/exit`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
         },
-        body : jsonData
-    })
-    .then(res => {return res.json()});
-    // console.log(response);
+        body: JSON.stringify(postData)
+    });
 
+    const jsonData = response.json();
     window.location.href = 'list/list.html';
-    console.log("parkingEnd clicked!");
 });
 
 document.getElementById('searchArea').addEventListener('click', function () {
@@ -332,8 +328,8 @@ function main() {
     setStorage();
     splashEffect();
     snackBar();
-    loadImage();
     checkNotification();
+    loadImage();
     console.log("user : " + localStorage.getItem("user"));
     console.log("userId : " + localStorage.getItem("userId"));
     console.log("locationKey : " + localStorage.getItem("locationKey"));
