@@ -116,7 +116,8 @@ function loadImage() {
         formData.append('image', file);
 
         // 서버로 이미지 업로드 219.255.1.253:8080
-        const response = await fetch('http://localhost:8080/camera/save', {
+        // const response = await fetch('http://localhost:8080/camera/save', {
+        const response = await fetch('//219.255.1.253:8080/camera/save', {
             headers: 'multipart/form-data',
             method: 'POST',
             body: formData
@@ -154,7 +155,9 @@ function checkNotification() {
 
 // 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 export async function getParkingInformation(locationName) {
-    const url = `http://localhost:8080/home?name=${locationName}`;
+    localStorage.setItem("locationKey", locationName);
+    // const url = `http://localhost:8080/home?name=${locationName}`;
+    const url = `//219.255.1.253:8080/home?name=${locationName}`;
 
     await fetch(url, {
         method: 'GET',
@@ -192,7 +195,8 @@ export async function getParkingInformation(locationName) {
 // 현재의 주차 정보를 가져오는 함수
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
-        const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
+        // const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
+        const url = `//219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
         let time = document.getElementById("time");
@@ -281,9 +285,35 @@ document.getElementById('goToList').addEventListener('click', function() {
     window.location.href = 'list/list.html';
 });
 
-document.getElementById('parkingEnd').addEventListener('click', function() {
+document.getElementById('parkingEnd').addEventListener('click', async function() {
     // Do something when [주차 종료] is clicked
-    window.location.href = 'list.html';
+
+    let formData = {
+        "name" : "현대백화점 무역센터점",
+        "imageId" : 0,
+        "content" : "메모",
+        "paidFee" : "1,000 원",
+        "parkingTime" : "1시간 24분"
+    }
+
+    let jsonData = JSON.stringify(formData);
+
+    // 요청 url 생성
+    const reqUrl = `//219.255.1.253:8080/home/exit`;
+    // const reqUrl = `http://localhost:8080/home/exit`;
+
+    // api 요청
+    const response = await fetch(reqUrl, {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/json",
+        },
+        body : jsonData
+    })
+    .then(res => {return res.json()});
+    // console.log(response);
+
+    window.location.href = 'list/list.html';
     console.log("parkingEnd clicked!");
 });
 
@@ -291,6 +321,10 @@ document.getElementById('searchArea').addEventListener('click', function () {
     // Redirect to search.html when searchContent is clicked
     window.location.href = 'search/search.html';
     console.log('searchArea clicked!');
+})
+
+document.getElementById('parkingMain').addEventListener('click', function () {
+    window.location.href = 'parkingInfo/parkingInfo.html';
 })
 
 // main 함수
@@ -302,7 +336,7 @@ function main() {
     checkNotification();
     console.log("user : " + localStorage.getItem("user"));
     console.log("userId : " + localStorage.getItem("userId"));
-    console.log("parkinglost : " + localStorage.getItem("parkinglot"));
+    console.log("locationKey : " + localStorage.getItem("locationKey"));
 }
 
 main();
