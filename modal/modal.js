@@ -73,7 +73,7 @@ function uploadModalContent() {
     console.log(params.toString());
 
     // URL과 쿼리 문자열 합치기
-    let url = 'http://219.255.1.253:8080/parking/withLocation?' + params.toString();
+    let url = '//219.255.1.253:8080/parking/withLocation?' + params.toString();
 
 
     const response = await fetch(url);

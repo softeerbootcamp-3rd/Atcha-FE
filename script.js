@@ -114,7 +114,7 @@ function loadImage() {
         formData.append('image', file);
 
         // 서버로 이미지 업로드 219.255.1.253:8080
-        const response = await fetch('http://219.255.1.253:8080/camera/save', {
+        const response = await fetch('//219.255.1.253:8080/camera/save', {
             headers: 'multipart/form-data',
             method: 'POST',
             body: formData
@@ -152,7 +152,7 @@ function checkNotification() {
 
 // 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 export async function getParkingInformation(locationName) {
-    const url = `http://219.255.1.253:8080/home?name=${locationName}`;
+    const url = `//219.255.1.253:8080/home?name=${locationName}`;
 
     await fetch(url, {
         method: 'GET',
@@ -190,7 +190,7 @@ export async function getParkingInformation(locationName) {
 // 현재의 주차 정보를 가져오는 함수
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
-        const url = `http://219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
+        const url = `//219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
         let time = document.getElementById("time");
