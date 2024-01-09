@@ -116,7 +116,8 @@ function loadImage() {
         formData.append('image', file);
 
         // 서버로 이미지 업로드 219.255.1.253:8080
-        const response = await fetch('http://localhost:8080/camera/save', {
+        // const response = await fetch('http://localhost:8080/camera/save', {
+        const response = await fetch('//219.255.1.253:8080/camera/save', {
             headers: 'multipart/form-data',
             method: 'POST',
             body: formData
@@ -155,7 +156,9 @@ function checkNotification() {
 
 // 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 export async function getParkingInformation(locationName) {
-    const url = `http://localhost:8080/home?name=${locationName}`;
+    localStorage.setItem("locationKey", locationName);
+    // const url = `http://localhost:8080/home?name=${locationName}`;
+    const url = `//219.255.1.253:8080/home?name=${locationName}`;
 
     await fetch(url, {
         method: 'GET',
@@ -193,7 +196,8 @@ export async function getParkingInformation(locationName) {
 // 현재의 주차 정보를 가져오는 함수
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
-        const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
+        // const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
+        const url = `//219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
         let time = document.getElementById("time");
@@ -232,6 +236,13 @@ export function scheduleRequest(locationName) {
         setTimeout(() => scheduleRequest(locationName), 6000);
     });
 };
+
+// localStorage 세팅
+function setStorage() {
+    console.log("setting storage");
+    localStorage.setItem("user", "test");
+    localStorage.setItem("userId", 1);
+}
 
 // 시간을 변경해주는 함수 로직변경으로 사용x
 let hours = 0;
@@ -278,6 +289,7 @@ document.getElementById('goToList').addEventListener('click', function() {
 document.getElementById('parkingEnd').addEventListener('click', async function() {
     // Do something when [주차 종료] is clicked
     // window.location.href = 'list.html';
+
     console.log("parkingEnd clicked!");
 
     const postData = {
@@ -298,21 +310,29 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
     });
 
     const jsonData = response.json();
-    
+    window.location.href = 'list/list.html';
 });
 
 document.getElementById('searchArea').addEventListener('click', function () {
     // Redirect to search.html when searchContent is clicked
-    window.location.href = 'search.html';
+    window.location.href = 'search/search.html';
     console.log('searchArea clicked!');
+})
+
+document.getElementById('parkingMain').addEventListener('click', function () {
+    window.location.href = 'parkingInfo/parkingInfo.html';
 })
 
 // main 함수
 function main() {
+    setStorage();
     splashEffect();
     snackBar();
     checkNotification();
     loadImage();
+    console.log("user : " + localStorage.getItem("user"));
+    console.log("userId : " + localStorage.getItem("userId"));
+    console.log("locationKey : " + localStorage.getItem("locationKey"));
 }
 
 main();
