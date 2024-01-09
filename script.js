@@ -1,6 +1,7 @@
 import { generateModal, closeModal} from "./modal/modal.js";
 import { SERVER_URL } from './constants.js';
 
+
 (function () {
     const key = localStorage.getItem('locationKey');
     if(!key) {
@@ -102,35 +103,6 @@ function snackBar() {
             document.getElementById('permissionSnackbar').style.display = 'none';
             generateModal();
         });
-    });
-}
-
-// 카메라 기능과 사진을 로드하는 기능의 함수
-function loadImage() {
-    let camera = document.getElementById('camera');
-    let frame = document.getElementById('frame');
-    let cameraArea = document.getElementById('cameraArea');
-
-    camera.addEventListener('change', async function(e) {
-        let file = e.target.files[0];
-        let formData = new FormData();
-        formData.append('image', file);
-
-        // 서버로 이미지 업로드 219.255.1.253:8080
-        // const response = await fetch('http://localhost:8080/camera/save', {
-        const response = await fetch(`${SERVER_URL}/camera/save`, {
-            headers: 'multipart/form-data',
-            method: 'POST',
-            body: formData
-        })
-        
-        const jsonData = response.json();
-        const imageId = jsonData.data.imageDataList['id'];
-        const imageLink = jsonData.data.imageDataList['imageLink'];
-
-        localStorage.setItem('imageId', imageId);
-        cameraArea.style.display = none;
-        frame.src = imageLink;
     });
 }
 
@@ -338,6 +310,66 @@ document.getElementById('parkingMain').addEventListener('click', function () {
     window.location.href = 'parkingInfo/parkingInfo.html';
 })
 
+const camera = document.getElementById('camera');
+const frame = document.getElementById('frame');
+const cameraArea = document.getElementById('cameraArea');
+
+camera.addEventListener('change', function(e) {
+    let file = e.target.files[0];
+    
+    resizeImage(file, 400, 400);
+})
+
+async function resizeImage(file, maxWidth, maxHeight) {
+    let img = new Image();
+    img.onload = function() {
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+
+        let width = img.width;
+        let height = img.height;
+
+        // 비율 유지를 위해 새로운 가로, 세로 크기 계산
+        if (width > height) {
+            if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+            }
+        } else {
+            if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
+            }
+        }
+
+        // 캔버스 크기 설정
+        canvas.width = width;
+        canvas.height = height;
+
+        // 이미지를 캔버스에 그림
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // 캔버스에서 데이터 URL로 변환하여 이미지에 설정
+        frame.src = canvas.toDataURL('image/jpeg');
+        cameraArea.style.display = 'none';
+    };
+    img.src = URL.createObjectURL(file);
+
+    let formData = new FormData();
+    formData.append('image', file);
+
+    const response = await fetch('http://localhost:8080/camera/save', {
+        method: 'POST',
+        body: formData
+    });
+
+    const jsonData = await response.json();
+    const imageId = jsonData.data.imageDataList['id'];
+    const imageLink = jsonData.data.imageDataList['imageLink'];
+
+    localStorage.setItem('imageId', imageId);
+}
+
 const typeCounter = document.getElementById("memoCount");
 // const textarea = document.getElementById("memo");
 document.getElementById("memo").addEventListener("keyup", function (event) {
@@ -354,7 +386,7 @@ function main() {
     splashEffect();
     snackBar();
     checkNotification();
-    loadImage();
+    // loadImage();
     console.log("user : " + localStorage.getItem("user"));
     console.log("userId : " + localStorage.getItem("userId"));
     console.log("locationKey : " + localStorage.getItem("locationKey"));
