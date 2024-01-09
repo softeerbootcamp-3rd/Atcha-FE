@@ -1,65 +1,81 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const scrollContainer = document.getElementById('scrollContainer');
-    const list = document.getElementById('list');
+const scrollContainer = document.getElementById("scrollContainer");
+const editButton = document.getElementById("edit");
+const deleteButton = document.getElementById("button-delete");
 
-    // 가상의 아이템을 생성하여 리스트에 추가
-    // for (let i = 1; i <= 50; i++) {
-    //     const listItem = document.createElement('li');
-    //     listItem.className = 'listItem';
-    //     listItem.textContent = '리스트 아이템 ' + i;
-    //     list.appendChild(listItem);
-    // }
+let isEditMode = false;
+let deleteList = [];
 
-    // 편집 모드 여부를 나타내는 변수
-    let isEditMode = false;
-
-    // 편집 버튼 클릭 이벤트 처리
-    document.getElementById('edit').addEventListener('click', function() {
-        isEditMode = !isEditMode;
-
-        // 편집 모드인 경우, 각 리스트 아이템에 클릭 이벤트 추가
-        if (isEditMode) {
-            list.querySelectorAll('.listItem').forEach(item => {
-                item.addEventListener('click', handleListItemClick);
-            });
-        } else {
-            // 편집 모드가 아닌 경우, 각 리스트 아이템에서 클릭 이벤트 제거
-            list.querySelectorAll('.listItem').forEach(item => {
-                item.removeEventListener('click', handleListItemClick);
-            });
-        }
-    });
-
-    function handleListItemClick(event) {
-        // 편집 모드에서는 클릭된 리스트 아이템 삭제
-        if (isEditMode) {
-            event.currentTarget.remove();
-        }
-    }
-
-    // 스크롤 이벤트 처리
-    // scrollContainer.addEventListener('scroll', function () {
-    //     // 스크롤이 끝까지 도달하면 새로운 아이템을 리스트에 추가
-    //     if (scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight) {
-    //         for (let i = 51; i <= 100; i++) {
-    //             const listItem = document.createElement('li');
-    //             listItem.className = 'listItem';
-    //             listItem.textContent = '리스트 아이템 ' + i;
-    //             list.appendChild(listItem);
-    //         }
-    //     }
-    // });
-});
-
+deleteButton.addEventListener('click', confirmDelete);
 document.getElementById('goToMain').addEventListener('click', function() {
     // Redirect to list.html when [뒤로가기] is clicked
-    window.location.href = 'index.html';
+    window.location.href = '../main.html';
 });
 
 document.getElementById('edit').addEventListener('click', function() {
     // Redirect to list.html when [뒤로가기] is clicked
-    console.log("Edit!")
+    console.log("Edit!");
+    changeMode();
 });
+
+async function confirmDelete() {
+    for (let historyId of deleteList) {
+        const reqUrl = `http://localhost:8080/home/history/${(historyId)}`;
+
+        // api 요청
+        const response = await fetch(reqUrl, {
+            method : "DELETE",
+            headers : {
+                "Content-Type" : "application/json",
+            }
+        })
+    }
+
+    location.reload(true);
+}
+
+async function changeMode() {
+    isEditMode = !isEditMode;
+    deleteButton.classList.toggle("hidden");
+
+    // 편집 모드인 경우, 각 리스트 아이템에 클릭 이벤트 추가
+    if (isEditMode) {
+        editButton.textContent = "취소";
+        scrollContainer.querySelectorAll('label').forEach(item => {
+            item.addEventListener('click', handleListItemClick);
+            const input = document.createElement("input");
+            input.id = "input";
+            input.setAttribute("type", "checkbox");
+            item.prepend(input);
+        });
+    } else {
+        editButton.textContent = "편집";
+        // 편집 모드가 아닌 경우, 각 리스트 아이템에서 클릭 이벤트 제거
+        scrollContainer.querySelectorAll('label').forEach(item => {
+            item.querySelector("#input").remove();
+            item.removeEventListener('click', handleListItemClick);
+        });
+
+        deleteList = [];
+    }
+};
+
+function handleListItemClick(event) {
+    if (event.target.tagName !== "INPUT") {
+        return;
+    }
+    // 편집 모드에서는 클릭된 리스트 아이템 삭제
+    if (isEditMode) {
+        const historyId = event.currentTarget.id;
+        const indexToRemove = deleteList.indexOf(historyId);
+        if (indexToRemove !== -1) {
+            deleteList.splice(indexToRemove, 1);
+        } else {
+            deleteList.push(event.currentTarget.id);
+        }
+    }
+
+    // console.log(deleteList);
+}
 
 async function loadHistory(memberId) {
     // 요청 url 생성
@@ -73,32 +89,37 @@ async function loadHistory(memberId) {
         }
     })
     .then(res => {return res.json()});
-    console.log(response.data.historys);
+    // console.log(response.data.historys);
 
-    const scrollContainer = document.getElementById("scrollContainer");
     for (let data of response.data.historys) {
-        const infoBox = document.createElement("div");
-        infoBox.classList.add("listBox");
+        const label = document.createElement("label");
+        label.id = data.historyId
+
+        const listBox = document.createElement("div");
+        // listBox.id = data.historyId;
+        listBox.classList.add("listBox");
+
         const log = document.createElement("div");
         
         const timeLog = document.createElement("div");
         timeLog.classList.add("info");
-        const parkingLog = document.createElement("div");
-        parkingLog.classList.add("info");
-
+        
         var dateChild = document.createElement("text");
         dateChild.setAttribute("id", "date");
         dateChild.textContent = data.parkingDate;
         timeLog.appendChild(dateChild);
-
+        
         var timeChild = document.createElement("text");
         timeChild.setAttribute("id", "time");
         timeChild.classList.add("position-right");
         timeChild.textContent = data.parkingTime;
         timeLog.appendChild(timeChild);
-
+        
         log.appendChild(timeLog);
 
+        const parkingLog = document.createElement("div");
+        parkingLog.classList.add("info");
+        
         var parkingChild = document.createElement("text");
         parkingChild.setAttribute("id", "parkinglot-name");
         parkingChild.textContent = data.parkingName;
@@ -111,9 +132,12 @@ async function loadHistory(memberId) {
         parkingLog.appendChild(feeChild);
 
         log.appendChild(parkingLog);
-        infoBox.appendChild(log);
 
-        scrollContainer.appendChild(infoBox);
+        listBox.appendChild(log);
+
+        label.appendChild(listBox);
+
+        scrollContainer.appendChild(label);
     }
 };
 
@@ -121,4 +145,13 @@ function main() {
     loadHistory(1);
 };
 
+function selectMapList() {
+	
+    var map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng(37.3595704, 127.105399),
+        zoom: 10
+    });
+}
+
 main();
+selectMapList();

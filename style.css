@@ -34,7 +34,7 @@ a {
     justify-content: space-between;
     padding-bottom: 7%;
     color: #D1FD0F;
-    font-size: 20px;
+    font-family: 'Pretendard-SemiBold';
 }
 
 .topContent a {
@@ -59,6 +59,7 @@ a {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+    font-family: 'Pretendard-Bold';
 }
 
 .timeContent {
@@ -93,8 +94,8 @@ a {
     /* display: flex; */
     justify-content: space-between;
 
-    font-size: 15px;  /* 글자 크기를 키움 */
-    font-weight: bold;  /* 볼드체로 설정 */
+    font-size: 21px;  /* 글자 크기를 키움 */
+    font-family: Pretendard-Bold;
 }
 
 #parkingList {
@@ -120,10 +121,11 @@ a {
 ul {
     list-style: none;
     padding: 0;
+    font-family: Pretendard-Regular;
 }
 
 .parkingInfoList {
-    margin-top:17px;
+    margin-top:28px;
 }
 
 .parkingMain a:first-child {
@@ -132,6 +134,10 @@ ul {
 
 .parkingMain a:last-child {
     float: right;
+}
+
+.parkingMain a:link, .parkingMain a:visited {
+    color: white;
 }
 
 .splash-container {
