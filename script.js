@@ -238,7 +238,6 @@ async function getHistoryInformation(id) {
                 time.innerHTML = realTime;
 
             })
-            .catch(error => console.error('에러: ', error));
     }
 
     getNowParkingInfo().then(() => {
