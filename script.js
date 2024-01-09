@@ -106,24 +106,26 @@ function snackBar() {
 function loadImage() {
     let camera = document.getElementById('camera');
     let frame = document.getElementById('frame');
+    let cameraArea = document.getElementById('cameraArea');
 
-    camera.addEventListener('change', function(e) {
-        let imageId;
+    camera.addEventListener('change', async function(e) {
         let file = e.target.files[0];
         let formData = new FormData();
         formData.append('image', file);
 
-        // 서버로 이미지 업로드
-        fetch('/camera/save', {
+        // 서버로 이미지 업로드 219.255.1.253:8080
+        const response = await fetch('http://219.255.1.253:8080/camera/save', {
+            headers: 'multipart/form-data',
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
-        .then(data => { // 이미지 로드
-            imageId = data.id;
-            frame.src = data.data.imageDataList[1];
-        })
-        .catch(error => console.error('에러: ', error));
+        
+        const jsonData = response.json();
+        const imageId = jsonData.data.imageDataList['id'];
+        const imageLink = jsonData.data.imageDataList['imageLink'];
+
+        cameraArea.style.display = none;
+        frame.src = imageLink;
     });
 }
 
@@ -150,7 +152,7 @@ function checkNotification() {
 
 // 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 export async function getParkingInformation(locationName) {
-    const url = `http://localhost:8080/home?name=${locationName}`;
+    const url = `http://219.255.1.253:8080/home?name=${locationName}`;
 
     await fetch(url, {
         method: 'GET',
@@ -188,7 +190,7 @@ export async function getParkingInformation(locationName) {
 // 현재의 주차 정보를 가져오는 함수
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
-        const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
+        const url = `http://219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
         let time = document.getElementById("time");
