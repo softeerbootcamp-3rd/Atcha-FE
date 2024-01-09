@@ -15,7 +15,7 @@ function openModal() {
 
 // 모달 닫기
 export function closeModal() {
-  var modal = document.getElementById('myModal');
+  let modal = document.getElementById('myModal');
   modal.style.display = 'none';
 }
 
@@ -46,12 +46,6 @@ function parseStringBetweenSingleQuotes(htmlString) {
   }
 }
 
-// 결과 반환
-function returnResult(value) {
-  closeModal(); // 모달 닫기
-  console.log(value); // 여기에서는 콘솔에 결과를 출력하도록 했습니다. 원하는 작업을 수행하면 됩니다.
-}
-
 // 모달 내용 업로드
 function uploadModalContent() {
   // 현재 위치 가져오기
@@ -73,7 +67,7 @@ function uploadModalContent() {
     console.log(params.toString());
 
     // URL과 쿼리 문자열 합치기
-    let url = '//219.255.1.253:8080/parking/withLocation?' + params.toString();
+    let url = 'http://localhost:8080/parking/withLocation?' + params.toString();
 
 
     const response = await fetch(url);

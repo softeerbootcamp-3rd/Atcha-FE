@@ -187,7 +187,7 @@ ul {
     padding: 20px;
     position: fixed;
     bottom: 10px;
-    left: 50%;
+    left: 14%;
     transform: translateX(-50%);
     width: 65%; 
     border-radius: 12px;
@@ -236,3 +236,39 @@ ul {
     color: #8E8E93;
     margin-top: 8px;
   }
+
+  /* CSS 파일에 추가 */
+.slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+#permissionSnackbar {
+    transform: translateY(100%);
+    transition: transform 0.5s ease-out;
+}
+
+#permissionSnackbar.show {
+    transform: translateY(0);
+}
+
+/* Snackbar 이외의 영역에 불투명한 배경 스타일링 */
+.snackbar-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 불투명한 배경 설정 */
+    z-index: 999; /* 다른 요소 위로 배치 */
+    display: none; /* 처음에는 숨겨둠 */
+}

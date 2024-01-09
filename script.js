@@ -86,19 +86,21 @@ function splashEffect(){
 function snackBar() {
     window.addEventListener('load', function() {
         const notificationGranted = localStorage.getItem('notificationGranted');
-        
+        const snackbar = this.document.getElementById('permissionSnackbar');
         // 알림 권한이 허용되지 않았을 때
         if(!notificationGranted) {
+            // Snackbar가 아래에서 위로 올라오는 애니메이션 클래스 추가
+            snackbar.classList.add('slide-up');
+            snackbar.classList.add('show');
             document.getElementById('permissionSnackbar').style.display = 'block';
         } else { // 알림 권한이 허용 됐을 때
             document.getElementById('permissionSnackbar').style.display = 'none';
         }
-    });
-    
-    document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
-        document.getElementById('permissionSnackbar').style.display = 'none';
-        console.log("hello")
-        generateModal();
+        document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
+            snackbar.classList.remove('slide-up');
+            document.getElementById('permissionSnackbar').style.display = 'none';
+            generateModal();
+        });
     });
 }
 
@@ -114,7 +116,7 @@ function loadImage() {
         formData.append('image', file);
 
         // 서버로 이미지 업로드 219.255.1.253:8080
-        const response = await fetch('//219.255.1.253:8080/camera/save', {
+        const response = await fetch('http://localhost:8080/camera/save', {
             headers: 'multipart/form-data',
             method: 'POST',
             body: formData
@@ -152,7 +154,7 @@ function checkNotification() {
 
 // 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 export async function getParkingInformation(locationName) {
-    const url = `//219.255.1.253:8080/home?name=${locationName}`;
+    const url = `http://localhost:8080/home?name=${locationName}`;
 
     await fetch(url, {
         method: 'GET',
@@ -190,7 +192,7 @@ export async function getParkingInformation(locationName) {
 // 현재의 주차 정보를 가져오는 함수
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
-        const url = `//219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
+        const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
         let time = document.getElementById("time");
