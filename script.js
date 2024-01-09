@@ -1,5 +1,15 @@
 import { generateModal, closeModal} from "./modal/modal.js";
 
+(function () {
+    const key = localStorage.getItem('locationKey');
+    if(!key) {
+        return ;
+    } else {
+        scheduleRequest(key);
+        getParkingInformation(key);
+    }
+})();
+
 document.getElementById('btn1').addEventListener('click', function() {
     console.log("1");
     closeModal();
@@ -13,8 +23,16 @@ document.getElementById('btn2').addEventListener('click', function() {
 
     console.log(locationName);
 
-    scheduleRequest(locationName);
-    getParkingInformation(locationName);
+    let locationKey = localStorage.getItem('locationKey');
+    console.log(`locationKey : ${locationKey}`);
+    if(!locationKey) {
+        localStorage.setItem('locationKey', locationName);
+        locationKey = localStorage.getItem('locationKey');
+    }
+
+    console.log(`locationKey : ${locationKey}`);
+    scheduleRequest(locationKey);
+    getParkingInformation(locationKey);
     closeModal();
 })
 
@@ -42,7 +60,7 @@ function splashPage() {
             document.getElementById('splash-container').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }, 1000);
-    }, 1900);
+    }, 2200);
 }
 
 function splashEffect(){
@@ -84,87 +102,30 @@ function snackBar() {
     });
 }
 
-// 사용자의 위도, 경도 값을 가져오는 함수
-function getPosition() {
-    const currentGeoLocation = document.getElementById("closeSnackbarBtn");
-
-    currentGeoLocation.onclick = function() {
-        let geoOptions = {
-            timeout: 10 * 1000
-        };
-
-        // 위도, 경도 값을 성공적으로 가져왔을 때
-        let geoSuccess = async function (position) {
-            // 위도
-            const latitude = position.coords.latitude;
-            // 경도
-            const longitude = position.coords.longitude;
-
-            console.log(latitude, longitude);
-
-            let params = new URLSearchParams();
-            params.append('latitude', latitude.toString());
-            params.append('longitude', longitude.toString());
-
-            console.log(params.toString());
-
-            // URL과 쿼리 문자열 합치기
-            let url = 'http://localhost:8080/location/set/user?' + params.toString();
-
-            // 서버로 위도, 경도 값 전송 (GET)
-            await fetch(url)
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Fetch error:', error));
-
-            console.log(response);
-        };
-
-        // error.code can be:
-            //   0: unknown error
-            //   1: permission denied
-            //   2: position unavailable (error response from location provider)
-            //   3: timed out
-        let geoError = function (error) {
-            console.log('Error occurred. Error code: ' + error.code);
-        };
-        navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-    };
-}
-
-// 사용자로부터 입력을 받고 쿼리 스트링을 가지고 search.html로 리다이랙션하는 함수
-// function performSearch() {
-//     // Get the value entered in the search input
-//     const searchInputValue = document.getElementById('searchInput').value;
-
-//     if (searchInputValue.trim() !== '') {
-//         // Redirect to search.html with the search query as a parameter
-//         window.location.href = `search.html?q=${encodeURIComponent(searchInputValue)}`;
-//     }
-// }
-
 // 카메라 기능과 사진을 로드하는 기능의 함수
 function loadImage() {
     let camera = document.getElementById('camera');
     let frame = document.getElementById('frame');
+    let cameraArea = document.getElementById('cameraArea');
 
-    camera.addEventListener('change', function(e) {
-        let imageId;
+    camera.addEventListener('change', async function(e) {
         let file = e.target.files[0];
         let formData = new FormData();
         formData.append('image', file);
 
-        // 서버로 이미지 업로드
-        fetch('/camera/save', {
+        // 서버로 이미지 업로드 219.255.1.253:8080
+        const response = await fetch('http://219.255.1.253:8080/camera/save', {
+            headers: 'multipart/form-data',
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
-        .then(data => { // 이미지 로드
-            imageId = data.id;
-            frame.src = data.data.imageDataList[1];
-        })
-        .catch(error => console.error('에러: ', error));
+        
+        const jsonData = response.json();
+        const imageId = jsonData.data.imageDataList['id'];
+        const imageLink = jsonData.data.imageDataList['imageLink'];
+
+        cameraArea.style.display = none;
+        frame.src = imageLink;
     });
 }
 
@@ -189,9 +150,9 @@ function checkNotification() {
     })
 }
 
-// 주차장 관련 정보를 서버로부터 가져오는 함수 (GET) <=========================
+// 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 export async function getParkingInformation(locationName) {
-    const url = `http://localhost:8080/home?name=${locationName}`;
+    const url = `http://219.255.1.253:8080/home?name=${locationName}`;
 
     await fetch(url, {
         method: 'GET',
@@ -226,23 +187,10 @@ export async function getParkingInformation(locationName) {
         })
 }
 
-// 기록 목록 정보를 서버로부터 가져오는 함수 (GET)
-async function getHistoryInformation(id) {
-    const queryString = `/home/history/${id}`;
-    const urlWithQueryString = `/tempUrl/${queryString}`;
-
-    await fetch(urlWithQueryString)
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Fetch error:', error));
-
-  // do something with response to list history value
-}
-
-// 현재의 주차 정보를 가져오는 함수 <====================================
+// 현재의 주차 정보를 가져오는 함수
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
-        const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
+        const url = `http://219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
         let time = document.getElementById("time");
@@ -340,10 +288,7 @@ document.getElementById('searchArea').addEventListener('click', function () {
 function main() {
     splashEffect();
     snackBar();
-    // getPosition();
     loadImage();
-    // getParkingInformation('locationName'); // modal에서 사용
-    // scheduleRequest('locationName'); // modal에서 사용
     checkNotification();
 }
 
