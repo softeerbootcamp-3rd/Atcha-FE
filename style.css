@@ -285,3 +285,7 @@ ul {
 #searchArea:hover {
     cursor: pointer;
 }
+
+canvas {
+    align-content: center;
+}

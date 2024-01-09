@@ -317,7 +317,7 @@ const cameraArea = document.getElementById('cameraArea');
 camera.addEventListener('change', function(e) {
     let file = e.target.files[0];
     
-    resizeImage(file, 400, 400);
+    resizeImage(file, 300, 300);
 })
 
 async function resizeImage(file, maxWidth, maxHeight) {
