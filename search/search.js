@@ -56,13 +56,28 @@ async function isParkingExist(target) {
     return false;
 }
 
+function filter() {
+    let search = document.getElementById("searchInput").value.toLowerCase();
+    let listInner = document.getElementsByClassName("listContent");
+   
+    for (let i = 0; i < listInner.length; i++) {
+        parkingName = listInner[i].getElementsByClassName("position-left");
+        if (parkingName[0].innerHTML.toLowerCase().includes(search)
+           ) {
+            listInner[i].style.display = "flex"
+        } else {
+            listInner[i].style.display = "none"
+        }
+    }
+}
+
 // 웹 페이지에 저장되어 있는 위치들 출력하는 함수
 async function viewParkingList() {
     const listContainer = document.getElementById('listContainer');
     await getAllParkingName();
 
     parkingList.forEach(function (item) {
-        console.log(item);
+        // console.log(item);
         const listContent = document.createElement("div");
         listContent.classList.add("listContent");
 
