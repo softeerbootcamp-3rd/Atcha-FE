@@ -126,6 +126,7 @@ function loadImage() {
         const imageId = jsonData.data.imageDataList['id'];
         const imageLink = jsonData.data.imageDataList['imageLink'];
 
+        localStorage.setItem('imageId', imageId);
         cameraArea.style.display = none;
         frame.src = imageLink;
     });
@@ -274,10 +275,30 @@ document.getElementById('goToList').addEventListener('click', function() {
     window.location.href = 'list/list.html';
 });
 
-document.getElementById('parkingEnd').addEventListener('click', function() {
+document.getElementById('parkingEnd').addEventListener('click', async function() {
     // Do something when [주차 종료] is clicked
-    window.location.href = 'list.html';
+    // window.location.href = 'list.html';
     console.log("parkingEnd clicked!");
+
+    const postData = {
+        name: localStorage.getItem('locationKey'),
+        imageId: parseInt(localStorage.getItem('imageId')),
+        content: document.getElementById('memoArea').value,
+        paidFee: document.getElementById('fee').innerHTML,
+        parkingTime: document.getElementById('time').innerHTML
+    }
+
+    const url = `http://localhost:8080/home/exit`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(postData)
+    });
+
+    const jsonData = response.json();
+    
 });
 
 document.getElementById('searchArea').addEventListener('click', function () {
@@ -290,8 +311,8 @@ document.getElementById('searchArea').addEventListener('click', function () {
 function main() {
     splashEffect();
     snackBar();
-    loadImage();
     checkNotification();
+    loadImage();
 }
 
 main();
