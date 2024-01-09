@@ -12,6 +12,10 @@ a {
     text-decoration: none
 }
 
+a:visited {
+    color: #8E8E93;
+}
+
 #goToList {
     padding: 10px
 }
@@ -134,6 +138,10 @@ ul {
 
 .parkingInfoList {
     margin-top:28px;
+}
+
+.parkingMain:hover {
+    cursor: pointer;
 }
 
 .parkingMain a:first-child {

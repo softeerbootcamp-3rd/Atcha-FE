@@ -237,6 +237,11 @@ function setStorage() {
     localStorage.setItem("userId", 1);
 }
 
+// 주차장이 설정된 경우 화면을 세팅하는 함수
+function setContent() {
+    scheduleRequest(localStorage.getItem("parkinglot"));
+}
+
 // 시간을 변경해주는 함수 로직변경으로 사용x
 let hours = 0;
 let minutes = 0;
@@ -291,9 +296,14 @@ document.getElementById('searchArea').addEventListener('click', function () {
     console.log('searchArea clicked!');
 })
 
+document.getElementById('parkingMain').addEventListener('click', function () {
+    window.location.href = 'parkingInfo/parkingInfo.html';
+})
+
 // main 함수
 function main() {
     setStorage();
+    setContent();
     splashEffect();
     snackBar();
     loadImage();

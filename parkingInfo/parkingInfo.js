@@ -53,6 +53,10 @@ async function loadParkingInfo(name) {
     }
 };
 
+document.getElementById("goToMain").addEventListener('click', function () {
+  window.location.href = "../main.html";
+});
+
 function main() {
     loadParkingInfo("현대백화점 무역센터점");
     // loadParkingInfo("코엑스");

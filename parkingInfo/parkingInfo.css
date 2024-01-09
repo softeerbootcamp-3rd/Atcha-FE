@@ -22,10 +22,19 @@ body {
 
 .button-back {
     left: 0;
+    color : #D1FD0F;
 }
 
 #parkinglot-name {
     font-size: 24px;
     font-weight: 700;
     padding: 24px 20px 24px 0px;
+}
+
+a:visited {
+    color : #D1FD0F;
+}
+
+a:link {
+    color : #D1FD0F;
 }
