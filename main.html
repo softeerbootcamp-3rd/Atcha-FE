@@ -97,10 +97,38 @@
         </div>
         <!-- 권한 요청 관련 Snackbar -->
         <div class="snackbar" id="permissionSnackbar">
-            <span>카메라와 위치 권한이 필요합니다.</span>
-            <button id="closeSnackbarBtn">닫기</button>
+            <div class="snackbarheading">앗차 사용을 위해 권한이 필요해요</div>
+                <div class="icon-container">
+                    <div class="icon">
+                        <img src="/imgs/location.svg" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="titlemini">위치</div>
+                        <div class="subtext">주차 위치의 정보와 요금을 받아와요.</div>
+                    </div>
+                </div>
+                <div class="icon-container">
+                    <div class="icon">
+                        <img src="/imgs/camera2.svg" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text">카메라</div>
+                        <div class="subtext">주차 위치 사진을 찍어 기록해요.</div>
+                    </div>
+                </div>
+                <div class="icon-container">
+                    <div class="icon">
+                        <img src="/imgs/notice.svg" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text">알림</div>
+                        <div class="subtext">요금이 오르기 전 푸시알림을 줘요.</div>
+                    </div>
+                </div>
+                <button id="closeSnackbarBtn">확인
+                </button>
+            </div>
         </div>
-    </div>
     <script type="module" src="script.js"></script>
     <script type="module" src="/modal/modal.js">
     </script>
