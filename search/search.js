@@ -1,3 +1,5 @@
+import { SERVER_URL } from '../constants.js';
+
 let parkingList = [];
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -32,7 +34,7 @@ document.getElementById('goToMain').addEventListener('click', function() {
 async function getAllParkingName() {
     // 요청 url 생성
     // const reqUrl = `http://localhost:8080/parking/withoutLocation`;
-    const reqUrl = `//219.255.1.253:8080/parking/withoutLocation`;
+    const reqUrl = `${SERVER_URL}/parking/withoutLocation`;
 
     // api 요청
     const response = await fetch(reqUrl, {

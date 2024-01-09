@@ -1,3 +1,5 @@
+import { SERVER_URL } from '../constants.js';
+
 const checkHasIncode = keyword => {
     const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/; // 한글인지 식별해주기 위한 정규표현식
   
@@ -12,7 +14,7 @@ const checkHasIncode = keyword => {
 async function loadParkingInfo(name) {
     // 요청 url 생성
     // const reqUrl = `http://localhost:8080/home?name=${checkHasIncode(name)}`;
-    const reqUrl = `//219.255.1.253:8080/home?name=${checkHasIncode(name)}`;
+    const reqUrl = `${SERVER_URL}/home?name=${checkHasIncode(name)}`;
 
     // api 요청
     const response = await fetch(reqUrl, {

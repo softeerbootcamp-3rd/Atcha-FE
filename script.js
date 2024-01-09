@@ -1,4 +1,5 @@
 import { generateModal, closeModal} from "./modal/modal.js";
+import { SERVER_URL } from './constants.js';
 
 (function () {
     const key = localStorage.getItem('locationKey');
@@ -117,7 +118,7 @@ function loadImage() {
 
         // 서버로 이미지 업로드 219.255.1.253:8080
         // const response = await fetch('http://localhost:8080/camera/save', {
-        const response = await fetch('//219.255.1.253:8080/camera/save', {
+        const response = await fetch(`${SERVER_URL}/camera/save`, {
             headers: 'multipart/form-data',
             method: 'POST',
             body: formData
@@ -158,7 +159,7 @@ function checkNotification() {
 export async function getParkingInformation(locationName) {
     localStorage.setItem("locationKey", locationName);
     // const url = `http://localhost:8080/home?name=${locationName}`;
-    const url = `//219.255.1.253:8080/home?name=${locationName}`;
+    const url = `${SERVER_URL}/home?name=${locationName}`;
 
     await fetch(url, {
         method: 'GET',
@@ -197,7 +198,7 @@ export async function getParkingInformation(locationName) {
 export function scheduleRequest(locationName) {
     async function getNowParkingInfo() {
         // const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
-        const url = `//219.255.1.253:8080/home?name=${locationName}`; // name 변경 필요
+        const url = `${SERVER_URL}/home?name=${locationName}`; // name 변경 필요
         let parkingLotName = document.getElementById('building-location');
         let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
         let time = document.getElementById("time");
@@ -300,16 +301,19 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
         parkingTime: document.getElementById('time').innerHTML
     }
 
-    const url = `http://localhost:8080/home/exit`;
-    const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
+    // 요청 url 생성
+    const reqUrl = `${SERVER_URL}/home/exit`;
+    // const reqUrl = `http://localhost:8080/home/exit`;
+
+    // api 요청
+    const response = await fetch(reqUrl, {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/json",
         },
         body: JSON.stringify(postData)
     });
-
-    const jsonData = response.json();
+    
     window.location.href = 'list/list.html';
 });
 
