@@ -167,6 +167,10 @@ input[type="checkbox"] {
     align-items: center; /* 수직으로 중앙 정렬 */
   }
 
+  label:hover {
+    cursor: pointer;
+  }
+
   .red-button {
     display: inline-block;
     padding: 10px 20px;

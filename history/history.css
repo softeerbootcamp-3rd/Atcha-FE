@@ -1,0 +1,28 @@
+#history-date {
+    font-family: 'Pretendard-Bold';
+    font-weight: 600;
+    font-size: 16px;
+    position: absolute;
+    left: 50%;
+    color: white;
+    transform: translate(-50%);
+}
+
+#goToList {
+    font-size: 20px;
+}
+
+#goToList:hover {
+    cursor: pointer;
+}
+
+.topContent {
+    color: #8E8E93;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.timeContent img {
+    color: #8E8E93;
+}

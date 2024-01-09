@@ -57,11 +57,20 @@ async function loadParkingInfo(name) {
 };
 
 document.getElementById("goToMain").addEventListener('click', function () {
-  window.location.href = "../main.html";
+  if (localStorage.getItem("parkingLotKey")) {
+    localStorage.removeItem("parkingLotKey");
+    window.location.href = "../history/history.html";
+  } else {
+    window.location.href = "../main.html";
+  }
 });
 
 function main() {
+  if (localStorage.getItem("parkingLotKey")) {
+    loadParkingInfo(localStorage.getItem("parkingLotKey"));
+  } else {
     loadParkingInfo(localStorage.getItem("locationKey"));
+  }
     // loadParkingInfo("코엑스");
 };
 

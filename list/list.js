@@ -1,3 +1,5 @@
+import { SERVER_URL } from '../constants.js';
+
 const scrollContainer = document.getElementById("scrollContainer");
 const editButton = document.getElementById("edit");
 const deleteButton = document.getElementById("button-delete");
@@ -19,7 +21,7 @@ document.getElementById('edit').addEventListener('click', function() {
 
 async function confirmDelete() {
     for (let historyId of deleteList) {
-        const reqUrl = `http://localhost:8080/home/history/${(historyId)}`;
+        const reqUrl = `${SERVER_URL}home/history/${(historyId)}`;
 
         // api 요청
         const response = await fetch(reqUrl, {
@@ -79,7 +81,7 @@ function handleListItemClick(event) {
 
 async function loadHistory(memberId) {
     // 요청 url 생성
-    const reqUrl = `http://localhost:8080/home/history/${memberId}`;
+    const reqUrl = `${SERVER_URL}/home/history/${memberId}`;
 
     // api 요청
     const response = await fetch(reqUrl, {
@@ -99,6 +101,10 @@ async function loadHistory(memberId) {
     for (let data of response.data.historys) {
         const label = document.createElement("label");
         label.id = data.historyId
+        label.addEventListener('click', function (event) {
+            localStorage.setItem("historyId", event.currentTarget.id);
+            window.location.href = '../history/history.html';
+        });
 
         const listBox = document.createElement("div");
         // listBox.id = data.historyId;
