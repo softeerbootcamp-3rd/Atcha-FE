@@ -58,6 +58,7 @@ function splashEffect(){
             localStorage.setItem('splashScreenDisplayed', 'true');
         }else{ // 2번 이상 접속 했을 때 스플래쉬 효과가 나오지 않도록
             document.getElementById('splash-container').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
         }
 
     });
