@@ -34,6 +34,7 @@ document.getElementById('btn2').addEventListener('click', function() {
     }
 
     console.log(`locationKey : ${locationKey}`);
+    document.getElementById('parkingEnd').style.display = "block";
     scheduleRequest(locationKey);
     getParkingInformation(locationKey);
     closeModal();
