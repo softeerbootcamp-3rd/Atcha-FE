@@ -26,12 +26,18 @@ async function loadHistory() {
     })
     .then(res => {return res.json()});
     console.log(response);
+    console.log(response.data.link);
 
     document.getElementById('history-date').textContent = response.data.parkingDate;
     document.getElementById('building-location').textContent = response.data.parkingLot.name;
     document.getElementById('time').textContent = response.data.parkingTime;
     document.getElementById('fee').textContent = response.data.paidFee;
     document.getElementById('memo').textContent = response.data.content;
+
+    cameraArea.style.display = 'none';
+
+    const frame = document.getElementById('frame');
+    frame.src = response.data.link;
 
     let ul = document.getElementById('parkingList');
     let fee = response.data.parkingLot.fee.split("|")[0];
