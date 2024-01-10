@@ -36,8 +36,10 @@ async function loadHistory() {
 
     cameraArea.style.display = 'none';
 
-    const frame = document.getElementById('frame');
-    frame.src = response.data.link;
+    if (response.data.link) {
+        const frame = document.getElementById('frame');
+        frame.src = response.data.link;
+    }
 
     let ul = document.getElementById('parkingList');
     let fee = response.data.parkingLot.fee.split("|")[0];
