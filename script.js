@@ -243,6 +243,13 @@ function setStorage() {
     localStorage.setItem("userId", 1);
 }
 
+// 버튼 활성화 세팅
+function setButton() {
+    if (!localStorage.getItem("locationKey")) {
+        document.getElementById("parkingEnd").style.display = "none";
+    }
+}
+
 // 시간을 변경해주는 함수 로직변경으로 사용x
 let hours = 0;
 let minutes = 0;
@@ -419,6 +426,7 @@ document.getElementById("memo").addEventListener("keyup", function (event) {
 // main 함수
 function main() {
     setStorage();
+    setButton();
     splashEffect();
     snackBar();
     checkNotification();
