@@ -89,7 +89,7 @@
         </div>
 
         <!-- 사진 로드 부분 -->
-        <div id="imageFrame">
+        <div id="imageFrame" style="margin-left: 40px;">
             <img id="frame" style="border-radius: 15px;">
         </div>
         <!-- 메모 기능 부분 -->
@@ -125,39 +125,39 @@
             </div>
         </div>
         <!-- 권한 요청 관련 Snackbar -->
-    <div class="snackbar" id="permissionSnackbar">
-        <div class="snackbarheading">앗차 사용을 위해 권한이 필요해요</div>
-            <div class="icon-container">
-                <div class="icon">
-                    <img src="location.svg" alt="">
+        <div class="snackbar" id="permissionSnackbar">
+            <div class="snackbarheading">앗차 사용을 위해 권한이 필요해요</div>
+                <div class="icon-container">
+                    <div class="icon">
+                        <img src="location.svg" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="titlemini">위치</div>
+                        <div class="subtext">주차 위치의 정보와 요금을 받아와요.</div>
+                    </div>
                 </div>
-                <div class="content">
-                    <div class="titlemini">위치</div>
-                    <div class="subtext">주차 위치의 정보와 요금을 받아와요.</div>
+                <div class="icon-container">
+                    <div class="icon">
+                        <img src="camera2.svg" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text">카메라</div>
+                        <div class="subtext">주차 위치 사진을 찍어 기록해요.</div>
+                    </div>
                 </div>
+                <div class="icon-container">
+                    <div class="icon">
+                        <img src="notice.svg" alt="">
+                    </div>
+                    <div class="content">
+                        <div class="text">알림</div>
+                        <div class="subtext">요금이 오르기 전 푸시알림을 줘요.</div>
+                    </div>
+                </div>
+                <button id="closeSnackbarBtn">확인
+                </button>
             </div>
-            <div class="icon-container">
-                <div class="icon">
-                    <img src="camera2.svg" alt="">
-                </div>
-                <div class="content">
-                    <div class="text">카메라</div>
-                    <div class="subtext">주차 위치 사진을 찍어 기록해요.</div>
-                </div>
-            </div>
-            <div class="icon-container">
-                <div class="icon">
-                    <img src="notice.svg" alt="">
-                </div>
-                <div class="content">
-                    <div class="text">알림</div>
-                    <div class="subtext">요금이 오르기 전 푸시알림을 줘요.</div>
-                </div>
-            </div>
-            <button id="closeSnackbarBtn">확인
-            </button>
         </div>
-    </div>
     </div>
     <script type="module" src="script.js"></script>
     <script type="module" src="modal/modal.js">
