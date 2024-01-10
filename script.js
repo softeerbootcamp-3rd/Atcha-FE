@@ -90,17 +90,22 @@ function snackBar() {
     window.addEventListener('load', function() {
         const notificationGranted = localStorage.getItem('notificationGranted');
         const snackbar = this.document.getElementById('permissionSnackbar');
+        const locationKey = localStorage.getItem('locationKey');
+        console.log(notificationGranted, locationKey);
         // 알림 권한이 허용되지 않았을 때
-        if(!notificationGranted) {
+        if(!notificationGranted && !locationKey) {
             // Snackbar가 아래에서 위로 올라오는 애니메이션 클래스 추가
             snackbar.classList.add('slide-up');
             snackbar.classList.add('show');
             document.getElementById('permissionSnackbar').style.display = 'block';
         } else { // 알림 권한이 허용 됐을 때
+            snackbar.classList.remove('slide-up');
+            snackbar.classList.remove('show');
             document.getElementById('permissionSnackbar').style.display = 'none';
         }
         document.getElementById('closeSnackbarBtn').addEventListener('click', function() {
             snackbar.classList.remove('slide-up');
+            snackbar.classList.remove('show');
             document.getElementById('permissionSnackbar').style.display = 'none';
             generateModal();
         });
