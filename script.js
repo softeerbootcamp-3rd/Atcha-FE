@@ -170,36 +170,34 @@ export async function getParkingInformation(locationName) {
 // 현재의 주차 정보를 가져오는 함수
 export async function scheduleRequest(locationName) {
 
-    // 주차시작정보 post
-    const postUrl = `${SERVER_URL}/home/park/start`; // name 변경 필요
-    let today = new Date();
-    const postData = {
-        "parkingStartTime": today.getHours() + ':' + today.getMinutes()
+    // 주차시작정보를 로컬 스토리지에서 가져오거나 새로 설정
+    let parkingStartTime = localStorage.getItem('parkingStartTime');
+    if (!parkingStartTime) {
+        let today = new Date();
+        parkingStartTime = today.getHours() + ':' + today.getMinutes();
+        localStorage.setItem('parkingStartTime', parkingStartTime);
     }
+
+    const postUrl = `${SERVER_URL}/home/park/start`;
+    const postData = {
+        "parkingStartTime": parkingStartTime
+    };
 
     let response = await fetch(postUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(postData)  // postData로 변경
+        body: JSON.stringify(postData)
     });
     console.log(response);
 
     async function getNowParkingInfo() {
-
-
-        // const url = `http://localhost:8080/home?name=${locationName}`; // name 변경 필요
-        console.log("location: " + locationName);
-        const url = `${SERVER_URL}/home?name=${locationName}`; // name 변경 필요
+        const url = `${SERVER_URL}/home?name=${locationName}`;
         let parkingLotName = document.getElementById('building-location');
-        let feeInfo = document.getElementById('fee'); // 파싱 완료된 데이터
-        let time = document.getElementById("time");
-        let today = new Date();
-        let realTime;
+        let feeInfo = document.getElementById('fee');
+        let timeElement = document.getElementById("time");
 
-
-        // 주차비 계산
         await fetch(url, {
             method: 'GET',
             headers: {
@@ -208,34 +206,37 @@ export async function scheduleRequest(locationName) {
         })
             .then(response => response.json())
             .then(data => {
-                // 현재 위치 변경
                 parkingLotName.innerHTML = data.data.parkingLot.name;
-                feeInfo.innerHTML = data.data.myParkingFee; // 파싱 완료된 데이터
+                feeInfo.innerHTML = data.data.myParkingFee;
 
                 // 시간 구하기
-                let parkingTime = data.data.startTime.split(':');
-                console.log("time " + parkingTime);
-                let parkingHour = parkingTime[0];
-                let parkingMinutes = parkingTime[1];
-                let realMinutes =  today.getMinutes();
+                let [parkingHour, parkingMinutes] = parkingStartTime.split(':').map(num => parseInt(num, 10));
+                let today = new Date();
+                let realMinutes = today.getMinutes();
+                let realHours = today.getHours();
 
-                if (realMinutes - parkingMinutes < 0) {
-                    parkingHour += 1;
+                if (realMinutes < parkingMinutes) {
+                    realHours -= 1;
                     realMinutes += 60;
                 }
 
-                realTime = today.getHours() - parkingHour + '시간 ' + (realMinutes - parkingMinutes) + '분';
-                console.log("readtime: " + realTime);
-                time.innerHTML = realTime;
-                setTimeout(getNowParkingInfo, 6000);
-            })
-    }
-    getNowParkingInfo();
+                let elapsedHours = realHours - parkingHour;
+                let elapsedMinutes = realMinutes - parkingMinutes;
 
-    // getNowParkingInfo().then(() => {
-    //     setTimeout(() => getNowParkingInfo(), 600);
-    // });
-};
+                let realTime = elapsedHours + '시간 ' + elapsedMinutes + '분';
+                timeElement.innerHTML = realTime;
+
+                // 로컬 스토리지에 업데이트된 시간을 저장
+                localStorage.setItem('timeKey', realTime);
+                console.log("read time: " + realTime);
+            });
+        // 6초 후에 함수를 다시 호출합니다.
+        setTimeout(getNowParkingInfo, 6000);
+    }
+
+    getNowParkingInfo();
+}
+
 
 // localStorage 세팅
 function setStorage() {
@@ -332,6 +333,7 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
         });
     
     localStorage.removeItem("locationKey");
+    localStorage.removeItem("timeKey");
     window.location.href = 'list/list.html';
 });
 
