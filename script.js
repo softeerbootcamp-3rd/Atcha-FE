@@ -337,7 +337,7 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
             time.innerHTML = "0시간 0분;"
         });
     
-    // localStorage.removeItem("locationKey");
+    localStorage.removeItem("locationKey");
     window.location.href = 'list/list.html';
 });
 
