@@ -70,9 +70,17 @@ function uploadModalContent() {
 
     // URL과 쿼리 문자열 합치기
     let url =`${SERVER_URL}/parking/withLocation?` + params.toString();
+    let setUrl =`${SERVER_URL}/location/set/${localStorage.getItem("userId")}?` + params.toString();
 
     const response = await fetch(url);
     const jsonData = await response.json();
+    const setResponse = await fetch(setUrl, {
+      method : "POST",
+        headers : {
+            "Content-Type" : "application/json",
+        }
+    }).then(res => {return res.json();});
+    console.log(setResponse);
 
     console.log(jsonData);
     console.log(jsonData.data.parkingList[0].name);

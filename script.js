@@ -10,6 +10,7 @@ console.log('script.js start');
         scheduleRequest(key);
         getParkingInformation(key);
     }
+    console.log('주차장 정보 새로고침해도 가져오기');
 })();
 
 document.getElementById('btn1').addEventListener('click', function() {
@@ -306,7 +307,7 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
 
     const postData = {
         name: localStorage.getItem('locationKey'),
-        imageId: parseInt(localStorage.getItem('imageId')),
+        imageId: localStorage.getItem('imageId'),
         content: document.getElementById('memoArea').value,
         paidFee: document.getElementById('fee').innerHTML,
         parkingTime: document.getElementById('time').innerHTML,
@@ -358,8 +359,10 @@ const cameraArea = document.getElementById('cameraArea');
 
 camera.addEventListener('change', function(e) {
     let file = e.target.files[0];
+    console.log(e.target.files[0]);
+    console.log(camera);
     console.log(`image file: ${file}`);
-    resizeImage(file, 300, 300);
+    resizeImage(file, 375, 300);
 })
 
 async function resizeImage(file, maxWidth, maxHeight) {
@@ -398,11 +401,11 @@ async function resizeImage(file, maxWidth, maxHeight) {
     img.src = URL.createObjectURL(file);
 
     let formData = new FormData();
-    formData.append('multipartFile', file);
+    formData.append('file', file);
 
     const response = await fetch(`${SERVER_URL}/camera/save`, {
         headers: {
-            'Content-Type' : 'multipart/form-data'
+            // 'Content-Type' : 'multipart/form-data'
         },
         method: 'POST',
         body: formData

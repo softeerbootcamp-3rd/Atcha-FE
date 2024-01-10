@@ -47,6 +47,7 @@ a:visited {
     padding-bottom: 7%;
     color: #D1FD0F;
     font-family: 'Pretendard-SemiBold';
+    margin-top: 100px;
 }
 
 .topContent a {
@@ -120,6 +121,7 @@ a:visited {
 
 .parkingContent {
     margin-top: 20px;
+    margin-bottom: 50px;
 }
 .parkingMain {
     margin-top: 30px;
