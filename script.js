@@ -326,7 +326,7 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
     const response = await fetch(reqUrl, {
         method : "POST",
         headers : {
-            // "Content-Type" : "application/json",
+            "Content-Type" : "application/json",
         },
         body: JSON.stringify(postData),
     })
