@@ -1,6 +1,6 @@
 import { generateModal, closeModal} from "./modal/modal.js";
 import { SERVER_URL } from './constants.js';
-
+console.log('script.js start');
 
 (function () {
     const key = localStorage.getItem('locationKey');
@@ -130,7 +130,6 @@ function checkNotification() {
 // 주차장 관련 정보를 서버로부터 가져오는 함수 (GET)
 export async function getParkingInformation(locationName) {
     localStorage.setItem("locationKey", locationName);
-    // const url = `http://localhost:8080/home?name=${locationName}`;
     const url = `${SERVER_URL}/home?name=${locationName}`;
 
     await fetch(url, {
@@ -239,8 +238,8 @@ export async function scheduleRequest(locationName) {
 
 // localStorage 세팅
 function setStorage() {
-    console.log("setting storage");
-    localStorage.setItem("user", "test");
+    // console.log("setting storage");
+    // localStorage.setItem("user", "test");
     localStorage.setItem("userId", 1);
 }
 
@@ -302,12 +301,12 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
         imageId: parseInt(localStorage.getItem('imageId')),
         content: document.getElementById('memoArea').value,
         paidFee: document.getElementById('fee').innerHTML,
-        parkingTime: document.getElementById('time').innerHTML
+        parkingTime: document.getElementById('time').innerHTML,
+        content: document.getElementById('memo').value
     }
 
     // 요청 url 생성
     const reqUrl = `${SERVER_URL}/home/exit`;
-    // const reqUrl = `http://localhost:8080/home/exit`;
 
     // api 요청
     const response = await fetch(reqUrl, {
@@ -350,7 +349,7 @@ const cameraArea = document.getElementById('cameraArea');
 
 camera.addEventListener('change', function(e) {
     let file = e.target.files[0];
-    
+    console.log(`image file: ${file}`);
     resizeImage(file, 300, 300);
 })
 
@@ -390,22 +389,25 @@ async function resizeImage(file, maxWidth, maxHeight) {
     img.src = URL.createObjectURL(file);
 
     let formData = new FormData();
-    formData.append('image', file);
+    formData.append('multipartFile', file);
 
-    const response = await fetch('http://localhost:8080/camera/save', {
+    const response = await fetch(`${SERVER_URL}/camera/save`, {
+        headers: {
+            'Content-Type' : 'multipart/form-data'
+        },
         method: 'POST',
         body: formData
     });
 
     const jsonData = await response.json();
-    const imageId = jsonData.data.imageDataList['id'];
-    const imageLink = jsonData.data.imageDataList['imageLink'];
+    console.log(`image jsonData: ${JSON.stringify(jsonData)}`);
+    const imageId = jsonData.data.imageDataList[0].id;
+    const imageLink = jsonData.data.imageDataList[0].imageLink;
 
     localStorage.setItem('imageId', imageId);
 }
 
 const typeCounter = document.getElementById("memoCount");
-// const textarea = document.getElementById("memo");
 document.getElementById("memo").addEventListener("keyup", function (event) {
     let memo = event.target.value;
     if (memo.length > 100) {
@@ -420,7 +422,7 @@ function main() {
     splashEffect();
     snackBar();
     checkNotification();
-    // loadImage();
+
     console.log("user : " + localStorage.getItem("user"));
     console.log("userId : " + localStorage.getItem("userId"));
     console.log("locationKey : " + localStorage.getItem("locationKey"));

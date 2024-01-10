@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../fontStyle.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="../modal/modal.css">
+    <link rel="stylesheet" href="history.css">
+    <script src="https://kit.fontawesome.com/459c1a6dcb.js" crossorigin="anonymous"></script>
+    <title>Atcha</title>
+</head>
+<body>
+    <!-- main content -->
+    <div class="main-content" id="main-content">
+        <!------- website content ------->
+        <header>
+            <!-- 목록 페이지로 가는 [목록], [주차 종료] 텍스트 -->
+            <div class="topContent">
+                <i id="goToList" class="fa-solid fa-xmark"></i>
+                <text id="history-date">날짜</text>
+            </div>
+            <!-- 현재 건물 위치 -->
+            <div class="locationContent">
+                <div id="searchArea" style="margin-bottom: 10px;">
+                    <img src="../icon-pin-location-mono.svg" alt="icon-pin">
+                    <a href="#" id="building-location">위치를 설정해주세요.</a>
+                </div>
+            </div>
+            <!-- 사용자의 주차 시간과 요금 출력 -->
+            <div class="infoContent">
+                <div class="timeContent">
+                    <img src="../icon-clock-mono-dark.svg" alt="icon-clock">
+                    <span id="time">0시간 0분</span>
+                </div>
+                <span id="fee">0원</span>
+            </div>
+        </header>
+        <!-- 카메라 기능 부분 -->
+        <div id="cameraArea" style="position: relative; 
+                    width: 100%; 
+                    max-width: 400px; 
+                    height: 300px; 
+                    background-color: #272727; 
+                    overflow: hidden; 
+                    border-radius: 8px; 
+                    display: flex; 
+                    align-items: center; 
+                    justify-content: center; 
+                    flex-direction: column; 
+                    text-align: center;">
+
+            <!-- 이미지를 배경 이미지로 설정한 div -->
+            <div style="width: 12%; 
+                        height: 15%; 
+                        background-image: url('camera.svg'); 
+                        background-size: cover; 
+                        position: relative; 
+                        margin-bottom: 20px;"></div>
+        </div>
+
+        <!-- 사진 로드 부분 -->
+        <div><img id="frame"></div>
+        <!-- 메모 기능 부분 -->
+        <div id="memoArea">
+            <textarea id="memo" cols="20" rows="5" maxlength="100" class="memo-container"></textarea>
+        </div>
+
+        <!-- 사용중인 주차장의 정보 -->
+        <div class="parkingContent">
+            <div id="parkingMain" class="parkingMain">
+                <span class="parking">주차 정보</span>
+                <a href="#" id="parkingInfo"> > </a>
+            </div>
+            <div class="parkingInfoList">
+                <ul id="parkingList">
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- <script type="module" src="../script.js"></script> -->
+    <!-- <script type="module" src="../modal/modal.js"></script> -->
+    <script src="../constants.js" type="module"></script>
+    <script src="./history.js" type="module"></script>
+</body>
+</html>
