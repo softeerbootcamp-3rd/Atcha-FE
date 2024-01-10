@@ -314,7 +314,6 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
     const postData = {
         name: localStorage.getItem('locationKey'),
         imageId: localStorage.getItem('imageId'),
-        content: document.getElementById('memoArea').value,
         paidFee: document.getElementById('fee').innerHTML,
         parkingTime: document.getElementById('time').innerHTML,
         content: document.getElementById('memo').value
@@ -338,8 +337,7 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
             time.innerHTML = "0시간 0분;"
         });
     
-    localStorage.removeItem("locationKey");
-    localStorage.removeItem("timeKey");
+    // localStorage.removeItem("locationKey");
     window.location.href = 'list/list.html';
 });
 
