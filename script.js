@@ -10,6 +10,7 @@ console.log('script.js start');
         scheduleRequest(key);
         getParkingInformation(key);
     }
+    console.log('주차장 정보 새로고침해도 가져오기');
 })();
 
 document.getElementById('btn1').addEventListener('click', function() {
