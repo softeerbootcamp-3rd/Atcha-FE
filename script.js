@@ -306,7 +306,7 @@ document.getElementById('parkingEnd').addEventListener('click', async function()
 
     const postData = {
         name: localStorage.getItem('locationKey'),
-        imageId: parseInt(localStorage.getItem('imageId')),
+        imageId: localStorage.getItem('imageId'),
         content: document.getElementById('memoArea').value,
         paidFee: document.getElementById('fee').innerHTML,
         parkingTime: document.getElementById('time').innerHTML,
